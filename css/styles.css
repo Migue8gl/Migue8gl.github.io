@@ -1,0 +1,139 @@
+ body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+	font-size: 16px;
+  line-height: 30px;
+	margin: 7px;
+	padding: 0;
+  max-width: 800px;
+	margin: 100px auto;
+  padding: 0 1rem;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+strong, b {
+  font-weight: 700; /* 'bold' is usually 700 */
+  color: black;
+}
+
+a:visited {
+  color: blue;
+}
+
+::selection, a:focus, a:hover {
+  background-color:blue;
+  color: #fff;
+}
+
+sup {
+  line-height: 0;
+}
+
+/* To center images */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 12px;
+  margin: 0 auto;
+  max-width: 100%;
+  font-size: 10px;
+}
+
+blockquote {
+  border-left: 2px solid #cccccc; /* Add a left border */
+  padding: 0 15px; /* Add some padding for space */
+  margin: 10px 0; /* Add margin for separation */
+  color: #555; /* Set the text color */
+}
+
+.post-date {
+  font-family: 'Courier New', Courier, monospace;
+  color: #575757;
+  font-size: 18px;
+}
+
+details[open] {
+  border-bottom:5px solid #e6f2ff;
+  margin-bottom: 10px;
+}
+summary {
+  cursor:pointer;
+  /* background-color:rgba(0, 0, 255, 0.15); */
+  background-color: #e6f2ff;
+  padding-left: 12px;
+  border: 1px solid blue;
+  border-radius: 10px;
+}
+details {
+  margin-bottom: 20px; /* Added margin to create space between details blocks */
+}
+
+
+progress {
+  width: 100%;
+  background: #fff;
+  color: blue;
+  border: .2rem solid blue;
+  border-radius: 0;
+}
+
+/**
+ * Set the background color of the webkit progress bar.
+ */
+
+progress::-webkit-progress-bar {
+  background-color: #fff;
+}
+
+/**
+ * Set the color of the webkit progress bar.
+ */
+
+progress::-webkit-progress-value {
+  background-color: blue;
+}
+
+/**
+ * Set the color of the mozilla progress bar.
+ */
+
+progress::-moz-progress-bar {
+  background-color: blue;
+}
+
+
+.post-meta {
+  display: flex; /* Treat the paragraph as a flex container */
+  justify-content: space-between; /* Push children to opposite ends */
+  align-items: baseline; /* Align text along their baseline */
+  flex-wrap: wrap; /* Optional: Allow wrapping on small screens */
+}
+
+main img {
+  cursor: zoom-in;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: block;
+}
