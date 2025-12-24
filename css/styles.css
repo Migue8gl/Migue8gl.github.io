@@ -18,9 +18,11 @@ a {
   text-decoration: none;
   transition: color 0.15s ease;
 }
+
 a:visited {
   color: #3b82f6;
 }
+
 a:hover,
 a:focus {
   color: #60a5fa;
@@ -31,10 +33,12 @@ strong, b {
   font-weight: 500;
   color: #e6edf3;
 }
+
 ::selection {
   background-color: #58a6ff;
   color: #fff;
 }
+
 sup {
   line-height: 0;
 }
@@ -45,6 +49,7 @@ main img {
   border-radius: 4px;
   opacity: 0.95;
 }
+
 .center {
   display: block;
   margin: 1.5rem auto;
@@ -67,9 +72,11 @@ blockquote {
 .post-date {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
   color: #8b949e;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: -0.01em;
+  font-weight: 400;
 }
+
 .post-meta {
   display: flex;
   justify-content: space-between;
@@ -80,10 +87,39 @@ blockquote {
   border-bottom: 1px solid #373737;
 }
 
+/* Blog links */
+.blog-links {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #262626 0%, #2d2d2d 100%);
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.blog-links a {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.blog-links a:hover {
+  background-color: #60a5fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
 /* Details / summary */
 details {
   margin-bottom: 1.5rem;
 }
+
 summary {
   cursor: pointer;
   padding: 0.5rem 0.75rem;
@@ -93,9 +129,11 @@ summary {
   font-weight: 400;
   color: #c9d1d9;
 }
+
 details[open] summary {
   background-color: #2d2d2d;
 }
+
 details[open] {
   padding-bottom: 0.5rem;
 }
@@ -109,12 +147,15 @@ progress {
   background-color: #373737;
   overflow: hidden;
 }
+
 progress::-webkit-progress-bar {
   background-color: #373737;
 }
+
 progress::-webkit-progress-value {
   background-color: #58a6ff;
 }
+
 progress::-moz-progress-bar {
   background-color: #58a6ff;
 }
@@ -129,6 +170,7 @@ progress::-moz-progress-bar {
   justify-content: center;
   align-items: center;
 }
+
 .modal-content {
   max-width: 90%;
   max-height: 90%;
@@ -144,6 +186,7 @@ code {
   border-radius: 3px;
   color: #ff7b72;
 }
+
 pre {
   background-color: #262626;
   padding: 1rem;
@@ -151,6 +194,7 @@ pre {
   overflow-x: auto;
   border: 1px solid #373737;
 }
+
 pre code {
   background: none;
   padding: 0;
@@ -164,6 +208,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
+
 h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
 h3 { font-size: 1.25em; }
@@ -172,6 +217,7 @@ h3 { font-size: 1.25em; }
 ul, ol {
   padding-left: 1.5rem;
 }
+
 li {
   margin-bottom: 0.5rem;
 }

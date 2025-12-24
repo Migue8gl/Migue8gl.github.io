@@ -33,5 +33,3 @@ Dejo por aquí mi <a href="/cv/">CV</a> con un resumen de mi experiencia laboral
   {% assign postCount = postCount | plus: 1 %}
 {% endif %}
 {% endfor %}
-
----
