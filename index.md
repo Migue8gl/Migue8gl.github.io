@@ -15,6 +15,8 @@ Los contenidos SEO-optimizados, multimedia generada por inteligencia artificial 
 
 Asi que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y en general conceptos de ese mundillo.
 
+Además, de vez en cuando voy subiendo a mi <a href="https://github.com/Migue8gl">Github</a> proyectos personales de los que hablaré por aquí.
+
 Dejo por aquí mi <a href="/cv/">CV</a> con un resumen de mi experiencia laboral.
 
 
