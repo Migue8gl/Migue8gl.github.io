@@ -7,22 +7,15 @@ title: Miguel García
 description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Learning* y de vez en cuando de otras cosas que me interesen.
 ---
 
-{% assign totalPosts = site.posts | size %}
-{% assign totalWords = 0 %}
-
-{% for post in site.posts %}
-  {% assign postWords = post.content | number_of_words %}
-  {% assign totalWords = totalWords | plus: postWords %}
-{% endfor %}
-
 # Hola, soy Miguel
 
-Hi, welcome to my website! I use this tiny part of the internet to share my thoughts about machine learning, maths, cooking, philosophy, and other random things. I write for several reasons that I've explained [here](http://alexmolas.com/2023/07/15/nobody-cares-about-your-blog.html). Since 2020 I've wrote {{ totalPosts }} posts and {{ totalWords }} words. 
+¡Bienvenidos a mi blog personal! La verdad es que llevo ya un tiempo pensando en escribir algo, ya sea en una libretilla o en un blog, y es cierto que siempre me han interesado los blogs y los foros, pues considero que es la parte más real que nos queda en este submundo virtual, por desgracia. 
 
-I try to keep the site style quite minimal because I want to focus on the content and not on the container. Some people have told me it's too minimal, but I don't care. If you like it you can find the source code [in my repo](https://github.com/alexmolas/alexmolas.github.io/). Feel free to use it as you prefer.
+Los contenidos SEO-optimizados, multimedia generada por inteligencia artificial y completamente automatizado están dejando un espacio virtual bastante frío. Es en los blogs personales, foros con comunidades interesantes y con personas que participan activamente, donde se devuelve la magia que Internet siempre ha tenido y poco a poco pierde.
 
+Asi que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y en general conceptos de ese mundillo.
 
-If you want to hire me here you have my <a href="/cv/">CV</a>.
+Dejo por aquí mi <a href="/cv/">CV</a> con un resumen de mi experiencia laboral.
 
 
 ---
