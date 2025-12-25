@@ -11,45 +11,37 @@ body {
   color: #c9d1d9;
   background-color: #1c1c1e;
 }
-
 /* Links */
 a {
   color: #3b82f6;
   text-decoration: none;
   transition: color 0.15s ease;
 }
-
 a:visited {
   color: #3b82f6;
 }
-
 a:hover,
 a:focus {
   color: #60a5fa;
 }
-
 /* Text emphasis */
 strong, b {
   font-weight: 500;
   color: #e6edf3;
 }
-
 ::selection {
   background-color: #58a6ff;
   color: #fff;
 }
-
 sup {
   line-height: 0;
 }
-
 /* Images */
 main img {
   max-width: 100%;
   border-radius: 4px;
   opacity: 0.95;
 }
-
 .center {
   display: block;
   margin: 1.5rem auto;
@@ -57,7 +49,6 @@ main img {
   font-size: 11px;
   color: #8b949e;
 }
-
 /* Blockquotes */
 blockquote {
   border-left: 2px solid #484f58;
@@ -67,7 +58,6 @@ blockquote {
   font-style: italic;
   background-color: #262626;
 }
-
 /* Post meta */
 .post-date {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
@@ -76,7 +66,6 @@ blockquote {
   letter-spacing: -0.01em;
   font-weight: 400;
 }
-
 .post-meta {
   display: flex;
   justify-content: space-between;
@@ -86,7 +75,6 @@ blockquote {
   padding-bottom: 1rem;
   border-bottom: 1px solid #373737;
 }
-
 /* Blog links */
 .blog-links {
   margin: 2rem 0;
@@ -99,7 +87,6 @@ blockquote {
   flex-wrap: wrap;
   justify-content: center;
 }
-
 .blog-links a {
   padding: 0.5rem 1rem;
   background-color: #3b82f6;
@@ -108,18 +95,15 @@ blockquote {
   font-weight: 500;
   transition: all 0.2s ease;
 }
-
 .blog-links a:hover {
   background-color: #60a5fa;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
-
 /* Details / summary */
 details {
   margin-bottom: 1.5rem;
 }
-
 summary {
   cursor: pointer;
   padding: 0.5rem 0.75rem;
@@ -129,15 +113,12 @@ summary {
   font-weight: 400;
   color: #c9d1d9;
 }
-
 details[open] summary {
   background-color: #2d2d2d;
 }
-
 details[open] {
   padding-bottom: 0.5rem;
 }
-
 /* Progress */
 progress {
   width: 100%;
@@ -147,19 +128,15 @@ progress {
   background-color: #373737;
   overflow: hidden;
 }
-
 progress::-webkit-progress-bar {
   background-color: #373737;
 }
-
 progress::-webkit-progress-value {
   background-color: #58a6ff;
 }
-
 progress::-moz-progress-bar {
   background-color: #58a6ff;
 }
-
 /* Modal */
 .modal {
   position: fixed;
@@ -170,13 +147,11 @@ progress::-moz-progress-bar {
   justify-content: center;
   align-items: center;
 }
-
 .modal-content {
   max-width: 90%;
   max-height: 90%;
   border-radius: 4px;
 }
-
 /* Code */
 code {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
@@ -186,7 +161,6 @@ code {
   border-radius: 3px;
   color: #ff7b72;
 }
-
 pre {
   background-color: #262626;
   padding: 1rem;
@@ -194,12 +168,10 @@ pre {
   overflow-x: auto;
   border: 1px solid #373737;
 }
-
 pre code {
   background: none;
   padding: 0;
 }
-
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   color: #e6edf3;
@@ -208,16 +180,128 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
-
 h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
 h3 { font-size: 1.25em; }
-
 /* Lists */
 ul, ol {
   padding-left: 1.5rem;
 }
-
 li {
   margin-bottom: 0.5rem;
+}
+
+/* Archive header */
+.archive-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #373737;
+  padding-bottom: 1.5rem;
+}
+
+.archive-header h1 {
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+/* Blog statistics */
+.blog-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1rem 0.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #8b949e;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #6e7681;
+  letter-spacing: 0.02em;
+}
+
+/* Timeline */
+.timeline {
+  margin-top: 2rem;
+}
+
+.year-marker {
+  margin: 2.5rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #373737;
+}
+
+.year-label {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #8b949e;
+  margin: 0;
+}
+
+/* Post entries */
+.post-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.separator {
+  color: #484f58;
+  font-weight: 300;
+}
+
+.post-info {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.post-link {
+  font-weight: 300;
+  color: #c9d1d9;
+}
+
+.post-link:hover {
+  color: #3b82f6;
+}
+
+/* Word count */
+.word-count {
+  font-size: 0.75rem;
+  color: #6e7681;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .blog-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  .post-entry {
+    flex-wrap: wrap;
+  }
+  
+  .post-date {
+    font-size: 16px;
+  }
 }
