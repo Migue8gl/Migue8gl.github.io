@@ -53,7 +53,7 @@ layout: default
     {% endif %}
 
     <li class="post-item">
-      <time class="post-date">{{ post.date | date: "%b %d %Y" }}</time>
+      <time class="post-date">{{ post.date | date: "%b %d" }}</time>
       <span class="separator">·</span>
       <a href="{{ post.url }}" class="post-link">{{ post.title }}</a>
     </li>
