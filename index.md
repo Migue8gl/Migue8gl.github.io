@@ -8,7 +8,7 @@ description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Le
   <h1>Hola, soy Miguel</h1>
 
   <img
-    src="/assets/images/home/hero.png"
+    src="/assets/images/home/hero_2.png"
     alt="Miguel García – Ciencia de datos y Machine Learning"
     class="home-separator"
   />

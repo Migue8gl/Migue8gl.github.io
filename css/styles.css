@@ -354,7 +354,7 @@ li {
 
 .home-separator {
   display: block;
-  max-width: 500px;
+  max-width: 300px;
   margin: 3rem auto;
   opacity: 0.8;
 }

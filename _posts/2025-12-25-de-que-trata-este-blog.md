@@ -23,7 +23,7 @@ Quiero expresarme, escribir sobre lo que me gusta e intentar compartir algo de e
    width="600"
 %}
 
-¿Y por qué tan centrado en esta temática? Porque desde que lo descubrí en la facultad y fui ahondando en el tema, no me lo puedo sacar de la cabeza, es una OBSESIÓN. 
+¿Y por qué tan centrado en esta temática? Porque desde que lo descubrí en la facultad y fui ahondando en el tema, no me lo puedo sacar de la cabeza. Es una OBSESIÓN. 
 
 Me acuerdo perfectamente cuando me explicaron qué era la *IA* y a qué se aplicaba. Más concretamente, fue en la primera clase de aprendizaje automático. Allí nos empezaron a impartir la asignatura que yo ya llevaba años esperando. Desde hacía ya bastante tiempo, el término *machine learning* me resultaba conocido. Me fascinaba la potencia que tenían estos tipos de algoritmos de aprendizaje, ya que, como buen lector de ciencia ficción (recomiendo encarecidamente *Hyperion* y *La Caída de Hyperion*), ya tenía la cabeza saturada de ideas fantasiosas sobre el futuro. Sabía lo bien pagado que estaba el trabajo de científico de datos en el momento, lo cual es un aliciente (una pena que ya no tanto con tantísimos "expertos en *IA*" que hay hoy en día).
 
