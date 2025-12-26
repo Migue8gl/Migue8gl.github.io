@@ -17,6 +17,8 @@ Quiero expresarme, escribir sobre lo que me gusta e intentar compartir algo de e
 
 ¿Qué tipo de *posts* técnicos? Pues hablaré de algoritmos evolutivos, algoritmos de aprendizaje automático, programación general, arquitecturas de redes neuronales, casos prácticos donde aplicar este tipo de tecnología, *IA* en general, etc. Quizá en algún momento me salga de ahí, quizá hable algo alguna vez sobre algunas de mis lecturas. Ya se irá viendo con el tiempo.
 
+{% include image.html path="/assets/images/de-que-trata-este-blog/pso.gif" width="500" %}
+
 ¿Y por qué tan centrado en esta temática? Porque desde que lo descubrí en la facultad y fui ahondando en el tema, no me lo puedo sacar de la cabeza, es una OBSESIÓN. 
 
 Me acuerdo perfectamente cuando me explicaron qué era la *IA* y a qué se aplicaba. Más concretamente, fue en la primera clase de aprendizaje automático. Allí nos empezaron a impartir la asignatura que yo ya llevaba años esperando. Desde hacía ya bastante tiempo, el término *machine learning* me resultaba conocido. Me fascinaba la potencia que tenían estos tipos de algoritmos de aprendizaje, ya que, como buen lector de ciencia ficción (recomiendo encarecidamente *Hyperion* y *La Caída de Hyperion*), ya tenía la cabeza saturada de ideas fantasiosas sobre el futuro. Sabía lo bien pagado que estaba el trabajo de científico de datos en el momento, lo cual es un aliciente (una pena que ya no tanto con tantísimos "expertos en *IA*" que hay hoy en día).
