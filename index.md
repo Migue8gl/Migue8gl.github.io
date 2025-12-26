@@ -1,17 +1,17 @@
 ---
 layout: default
 title: Miguel García
-description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Learning* y de vez en cuando de otras cosas que me interesen.
+description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Learning* y, de vez en cuando, sobre otras cosas que me interesen.
 ---
 
 <div class="home-intro">
   <h1>Hola, soy Miguel</h1>
   
-  <p>¡Bienvenidos a mi blog personal! La verdad es que llevo ya un tiempo pensando en escribir algo, ya sea en una libretilla o en un blog, y es cierto que siempre me han interesado los blogs y los foros, pues considero que es la parte más real que nos queda en este submundo virtual, por desgracia.</p>
+  <p>¡Bienvenidos a mi blog personal! La verdad es que llevo ya un tiempo pensando en escribir algo, ya sea en una libretilla o en un blog. Siempre me han interesado los blogs y los foros, pues considero que es la parte más real que nos queda en este submundo virtual, por desgracia.</p>
   
-  <p>Los contenidos SEO-optimizados, multimedia generada por inteligencia artificial y completamente automatizado están dejando un espacio virtual bastante frío. Es en los blogs personales, foros con comunidades interesantes y con personas que participan activamente, donde se devuelve la magia que Internet siempre ha tenido y poco a poco pierde.</p>
+  <p>Los contenidos SEO-optimizados, la multimedia generada por inteligencia artificial y completamente automatizado están dejando un espacio virtual bastante frío. Es en los blogs personales, foros con comunidades interesantes y con personas que participan activamente, donde se devuelve la magia que Internet siempre ha tenido y poco a poco pierde.</p>
   
-  <p>Asi que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y conceptos de ese mundillo.</p>
+  <p>Así que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y conceptos de ese mundillo.</p>
   
   <p>Además, de vez en cuando voy subiendo a mi <a href="https://github.com/Migue8gl">Github</a> proyectos personales de los que hablaré por aquí.</p>
   
