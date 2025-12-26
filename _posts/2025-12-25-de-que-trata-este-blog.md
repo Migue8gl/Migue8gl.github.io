@@ -17,7 +17,7 @@ Quiero expresarme, escribir sobre lo que me gusta e intentar compartir algo de e
 
 ¿Qué tipo de *posts* técnicos? Pues hablaré de algoritmos evolutivos, algoritmos de aprendizaje automático, programación general, arquitecturas de redes neuronales, casos prácticos donde aplicar este tipo de tecnología, *IA* en general, etc. Quizá en algún momento me salga de ahí, quizá hable algo alguna vez sobre algunas de mis lecturas. Ya se irá viendo con el tiempo.
 
-{% include image.html path="/assets/images/de-que-trata-este-blog/pso.gif" width="500" %}
+{% include image.html path="/assets/images/de-que-trata-este-blog/pso.gif" width="600" %}
 
 ¿Y por qué tan centrado en esta temática? Porque desde que lo descubrí en la facultad y fui ahondando en el tema, no me lo puedo sacar de la cabeza, es una OBSESIÓN. 
 
