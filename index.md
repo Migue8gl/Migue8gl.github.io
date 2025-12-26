@@ -6,6 +6,12 @@ description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Le
 
 <div class="home-intro">
   <h1>Hola, soy Miguel</h1>
+
+  <img
+    src="/assets/images/home/hero.png"
+    alt="Miguel García – Ciencia de datos y Machine Learning"
+    class="home-separator"
+  />
   
   <p>¡Bienvenidos a mi blog personal! La verdad es que llevo ya un tiempo pensando en escribir algo, ya sea en una libretilla o en un blog. Siempre me han interesado los blogs y los foros, pues considero que es la parte más real que nos queda en este submundo virtual, por desgracia.</p>
   
