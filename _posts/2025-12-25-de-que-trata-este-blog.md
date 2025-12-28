@@ -15,11 +15,11 @@ Pero no nos desviemos del tema. Una vez resumido mi trabajo, mis gustos y mis af
 
 Quiero expresarme, escribir sobre lo que me gusta e intentar compartir algo de eso. Concretamente, intentaré escribir artículos técnicos, relacionadas con el mundo de los datos y la informática, que es a lo que me dedico y uno de mis principales intereses.
 
-¿Qué tipo de *posts* técnicos? Pues hablaré de algoritmos evolutivos, algoritmos de aprendizaje automático, programación general, arquitecturas de redes neuronales, casos prácticos donde aplicar este tipo de tecnología, *IA* en general, etc. Quizá en algún momento me salga de ahí, quizá hable algo alguna vez sobre algunas de mis lecturas. Ya se irá viendo con el tiempo.
+¿Qué tipo de *posts* técnicos? Pues hablaré de algoritmos poblacionales, algoritmos de aprendizaje automático, programación general, arquitecturas de redes neuronales, casos prácticos donde aplicar este tipo de tecnología, *IA* en general, etc. Quizá en algún momento me salga de ahí, quizá hable algo alguna vez sobre algunas de mis lecturas. Ya se irá viendo con el tiempo.
 
 {% include image.html
    path="/assets/images/de-que-trata-este-blog/pso.gif"
-   caption="Animación del algoritmo evolutivo PSO encontrando el mínimo de una función"
+   caption="Animación de la metaheurística PSO encontrando el mínimo de una función"
    width="600"
 %}
 
