@@ -473,14 +473,21 @@ figcaption.center {
   }
 }
 
-/* Evitar overflow en ecuaciones largas */
-.MathJax_Display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  max-width: 100%;
+/* MathJax v3: ecuaciones en modo display */
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Opcional: suaviza el scroll */
-.MathJax_Display::-webkit-scrollbar {
+/* Evita que el contenido “rompa” el layout al medir */
+mjx-container[display="true"] mjx-math {
+  white-space: nowrap;
+}
+
+/* Opcional: scrollbar más fina */
+mjx-container[display="true"]::-webkit-scrollbar {
   height: 6px;
 }
