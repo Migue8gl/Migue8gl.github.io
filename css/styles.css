@@ -388,13 +388,13 @@ li {
   padding-left: 2rem;
 }
 
-.table-of-contents > ul > li {
+.table-of-contents>ul>li {
   counter-increment: toc-counter;
   margin: 0.75rem 0;
   padding-left: 0;
 }
 
-.table-of-contents > ul > li::before {
+.table-of-contents>ul>li::before {
   content: counter(toc-counter) ".";
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
   color: #3b82f6;
@@ -471,4 +471,16 @@ figcaption.center {
   .grid-image {
     width: 100%;
   }
+}
+
+/* Evitar overflow en ecuaciones largas */
+.MathJax_Display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+/* Opcional: suaviza el scroll */
+.MathJax_Display::-webkit-scrollbar {
+  height: 6px;
 }
