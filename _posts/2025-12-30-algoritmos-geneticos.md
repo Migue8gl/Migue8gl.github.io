@@ -252,7 +252,7 @@ Como problema de ejemplo para optimizar y visualizar el comportamiento de este a
 
 Este consiste en seleccionar, de entre un conjunto de objetos con un peso y un valor asociados, aquellos que deben introducirse en una mochila con capacidad limitada para maximizar el valor total sin exceder dicha capacidad.
 
-Para poder trabajar en este problema con algoritmos genéticos, la codificación de las soluciones será un vector binario, donde cada gen representa un objeto candidato a ser introducido en la mochila: el valor $1$ indica que el objeto es seleccionado y el valor $0$ que no lo es.
+Para poder trabajar en este problema con algoritmos genéticos, la codificación de las soluciones deberá tomar la forma de un vector binario, donde cada gen representa un objeto candidato a ser introducido en la mochila: el valor $1$ indica que el objeto es seleccionado y el valor $0$ que no lo es.
 
 $$
 \mathbf{x} = (x_1, x_2, \dots, x_n), \quad x_i \in \{0,1\}, \quad
@@ -553,4 +553,4 @@ Finalmente, quería explicar que los algoritmos genéticos son en origen binario
 
 He de ser sincero, solo quería añadir estas animaciones porque mola. 
 
-Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar *GAs*. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar es enriquecedor.
+Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar *GAs*. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar, es enriquecedor.
