@@ -58,7 +58,7 @@ Siguiendo esta regla, el senderista acabará llegando a un punto donde todas las
 
 Algunos métodos topan con la misma problemática del senderista. Se quedan atascados en valores subóptimos.
 
-Dentro de todos los métodos de optimización existentes, hay unos que son bastante divertidos e interesantes. Son fáciles de programar, intuitivos y generalmente funcionan muy bien. Estos son las **metaheurísticas**. Estos son métodos cuyo principal característica es la aleatoriedad como motor principal de exploración. Y concretamente dentro de estos algoritmos, voy a hablar de los algoritmos genéticos.
+Dentro de todos los métodos de optimización existentes, hay unos que son bastante divertidos e interesantes. Son fáciles de programar, intuitivos y generalmente funcionan muy bien. Estas son las llamadas **metaheurísticas**, métodos cuya principal característica es la aleatoriedad como motor principal de exploración. Y concretamente dentro de estos algoritmos, voy a hablar de los algoritmos genéticos.
 
 ## Algoritmos genéticos
 
@@ -68,15 +68,15 @@ Estos algoritmos (y todas las metaheurísticas) tienen dos fases generales. La e
 
 ### Exploración y explotación
 
-Como he mencionado antes, la aleatoriedad es una parte clave de estas técnicas. Esta característica permite explorar zonas del espacio que quizá no habrían sido visitadas en primera instancia por parecer menos prometedoras. Gracias a ello, se permite una exploración más amplia y una habilidad que permite al algoritmo escapar de óptimos locales. Esta primera fase de búsqueda es la conocida como **exploración**.
+Como he mencionado antes, la aleatoriedad es una parte clave de estas técnicas. Esta característica permite explorar zonas del espacio que quizá no habrían sido visitadas en primera instancia por parecer menos prometedoras. Gracias a ello, se permite una exploración más amplia y se facilita que el algoritmo escapar de óptimos locales. Esta primera fase de búsqueda es la conocida como **exploración**.
 
 La **explotación** viene justo después. Esta es la habilidad de refinar y ajustar lo máximo posible una zona de soluciones, encontrando la mejor solución posible dentro de esta.
 
 El balance entre ambas fases es muy sensible y muy necesario. Si la exploración dominase, el algoritmo tardaría mucho tiempo en conseguir una solución, o incluso no convergería a ninguna. En cambio, si la explotación fuese más fuerte que la exploración, la convergencia sería muy prematura y posiblemente se encontraría una solución subóptima, cuando podría haber muchas mejores opciones sin descubrir.
 
-Los algoritmos genéticos son capaces de explorar y explotar gracias a su variada selección de operadores. Aunque antes de hundirnos en detalles sobre estos, hay que entender el algoritmo de forma general.
+Los algoritmos genéticos son capaces de explorar y explotar gracias a su variada selección de operadores. Aunque antes de profundizar en detalles sobre estos, hay que entender el algoritmo de forma general.
 
-Las **GAs** trabajan con una población de soluciones codificadas normalmente en forma binaria. Cada solución, llamada cromosoma, está compuesta por genes (*bits*), y el conjunto de cromosomas constituye la población. Esta población se inicializa de manera aleatoria para favorecer la exploración del espacio de soluciones y, posteriormente, cada cromosoma es evaluado según su calidad, lo que permite ordenar las soluciones de mejor a peor.
+Las **GAs** trabajan con una población de soluciones codificadas normalmente en forma binaria. Cada solución, llamada cromosoma, está compuesta por genes (*bits*), y el conjunto de cromosomas constituye la población. Esta población se inicializa de manera aleatoria para favorecer la exploración del espacio de soluciones y, posteriormente, cada cromosoma es evaluado según su calidad, lo que hace posible ordenar las soluciones de mejor a peor.
 
 A partir de esta evaluación comienza el proceso evolutivo, que se desarrolla en generaciones. En cada una se seleccionan los cromosomas más aptos para reproducirse, aplicando el principio de supervivencia del más apto sin eliminar completamente la diversidad. Los operadores genéticos principales son el cruce, que combina información de dos progenitores para generar nuevas soluciones, y la mutación, que introduce cambios aleatorios para evitar la convergencia prematura. Con apoyo del elitismo, que preserva las mejores soluciones, este ciclo se repite hasta cumplir un criterio de parada, tomando finalmente el mejor cromosoma como solución aproximada al problema. A continuación proporciono un diagrama general del ciclo evolutivo:
 
@@ -272,3 +272,285 @@ V(\mathbf{x}) = \sum_{i=1}^{n} v_i x_i
 $$
 
 En esta formulación, $\mathbf{x}$ es una solución candidata formada por $n$ objetos, $x_i$ indica la selección del objeto $i$, $w_i$ y $v_i$ representan respectivamente el peso y el valor del objeto $i$, $W(\mathbf{x})$ es el peso total de la solución, $W_{\max}$ la capacidad máxima de la mochila, y $V(\mathbf{x})$ el valor total de la solución, que se utiliza como función *fitness*.
+
+### Funciones de evaluación (*fitness*)
+
+Vamos a probar a solucionar este problema con el algoritmo genético básico que he presentado previamente. Para ello, antes de todo, debemos escoger una función *fitness*. Aquí entran dos tipos de evaluaciones que podemos hacer sobre una solución. Si la solución se excede en carga, podemos penalizarla de forma drástica, añadiendo un *score* de $0$, por ejemplo, y dejando el valor total como *score* para aquellos cromosomas que no violen la restricción. Esto funciona, pero tiene problemas. Imaginemos que tenemos dos soluciones de igual valor. Una se excede por $4kg$ y otra se excede por $0.3kg$. La función de evaluación daría la misma puntuación a ambas soluciones, cuando claramente hay una peor que otra. 
+
+```python
+def fitness_knapsack_hard(
+    population: np.ndarray,
+    weights: np.ndarray,
+    values: np.ndarray,
+    max_capacity: int,
+) -> np.ndarray:
+    total_weights = np.sum(population * weights, axis=1)
+    total_values = np.sum(population * values, axis=1)
+    total_values[total_weights > max_capacity] = 0.0
+
+    return total_values
+```
+
+Esto lo que le está diciendo al algoritmo es que debe darle la misma importancia a una que a otra. Podríamos estar sesgando la capacidad de exploración entre las ramificaciones de posibles soluciones hijas generadas a partir de la solución menos mala. También podría ocurrir que el algoritmo contenga una población de malas soluciones a las cuales no podría seguir evolucionando para intentar mejorar. Es una visión pesimista. La penalización binaria elimina la información sobre cómo de lejos está una solución de ser factible, reduciendo la capacidad del algoritmo para realizar mejoras graduales.
+
+Una opción alternativa sería penalizar suavemente, teniendo en cuenta la magnitud de la violación. La función `fitness_knapsack_soft` evalúa cada individuo en base a su valor total. Si esa solución se excede en peso total del máximo permitido, se introduce una penalización gradual que crece de manera exponencial. El factor $\alpha$ controla si se aplica más o menos penalización.
+
+```python
+def fitness_knapsack_soft(
+    population: np.ndarray,
+    weights: np.ndarray,
+    values: np.ndarray,
+    max_capacity: float,
+    alpha: float = 0.2,
+) -> np.ndarray:
+    total_weights = np.sum(population * weights, axis=1)
+    total_values = np.sum(population * values, axis=1)
+
+    excess = np.maximum(0.0, total_weights - max_capacity)
+    penalty = np.exp(-alpha * excess)
+
+    return total_values * penalty
+```
+
+### Resolución
+
+Vamos a comparar el **GA** con varios tamaños de problema y distintas restricciones con la función de evaluación suave y la dura. Además vamos a compararlo un algoritmo *Greedy* para analizar las diferencias en calidad de solución, tiempo de cómputo y cumplimiento de restricciones. El algoritmo *Greedy* es muy simple. Utiliza una heurística básica de ordenación y va escogiendo el mejor camino posible en cada paso hasta completar la solución final. Es muy rápido y, dependiendo de la heurística elegida, muy competente.
+
+```python
+class Greedy:
+    def __init__(
+        self,
+        weights: np.ndarray,
+        values: np.ndarray,
+        max_capacity: float,
+        heuristic: str,
+        fitness_func: Callable,
+    ):
+        self.weights = weights
+        self.values = values
+        self.max_capacity = max_capacity
+        self.fitness_func = fitness_func
+        self.heuristic = heuristic
+        self.best_fitness_history = []
+
+    def optimize(self) -> np.ndarray:
+        n = len(self.weights)
+        solution = np.zeros(n, dtype=int)
+
+        if self.heuristic == "h1":
+            ratios = self.values
+        elif self.heuristic == "h2":
+            ratios = self.weights
+        else:
+            ratios = self.values / self.weights
+        order = np.argsort(-ratios)
+
+        remaining_capacity = self.max_capacity
+
+        for i in order:
+            if self.weights[i] <= remaining_capacity:
+                solution[i] = 1
+                remaining_capacity -= self.weights[i]
+
+            fitness = self.fitness_func(solution.reshape(1, -1))[0]
+            self.best_fitness_history.append(fitness)
+
+        return solution
+```
+
+Para *Greedy* he definido tres heurísticas básicas. Ordenación de mejores objetos en base a el valor, el peso y el valor relativo al peso. 
+
+<table border="1" cellspacing="0" cellpadding="6">
+  <thead>
+    <tr>
+      <th>Heurística</th>
+      <th>Criterio</th>
+      <th>Idea</th>
+      <th>Razonamiento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>h1</td>
+      <td>Valor del ítem (↓)</td>
+      <td>Ítems más valiosos primero</td>
+      <td>Maximiza el beneficio absoluto</td>
+    </tr>
+    <tr>
+      <td>h2</td>
+      <td>Peso del ítem (↑)</td>
+      <td>Ítems más ligeros primero</td>
+      <td>Maximiza el número de ítems</td>
+    </tr>
+    <tr>
+      <td>h3</td>
+      <td>Valor / Peso (↓)</td>
+      <td>Ítems más eficientes</td>
+      <td>Maximiza la eficiencia valor–capacidad</td>
+    </tr>
+  </tbody>
+</table>
+
+Para tamaños pequeños como $50$, algoritmo *Greedy* con la primera heurística y una restricción generosa del $40\%$ sobre el total de número de objetos, obtenemos resultados muy decentes:
+
+{% include image.html
+   path="/assets/images/algoritmos-geneticos/fitness_comparison_50_h1_40.png"
+   caption="Convergencia de Greedy vs GA + Soft vs GA + Hard - Tamaño 50, restricción 40%"
+   width="500"
+%}
+
+```
+=== SOFT CONSTRAINTS ===
+Best fitness score: 25.419778639697903
+Total weight: 19.959887918754212
+Total value: 25.419778639697903
+Max capacity: 20
+
+=== HARD CONSTRAINTS ===
+Best fitness score: 25.419778639697903
+Total weight: 19.959887918754212
+Total value: 25.419778639697903
+Max capacity: 20
+
+=== GREEDY ===
+Best fitness score: 25.367928277332897
+Total weight: 19.93102578451347
+Total value: 25.367928277332897
+Max capacity: 20
+```
+
+Todos los algoritmos muestran buenas soluciones, siendo los *GAs* ligeramente superiores. Aun así, los tres obtienen soluciones muy buenas. Las dos funciones de *fitness* funcionan igual de bien. También se observa que *Greedy* es mucho más rápido, ya que ha tardado en converger menos de $50$ iteraciones, mientras que los genéticos han necesitado más de $100$ para igualar el *score*. Aunque es algo obvio, el *Greedy* no realiza exploración, solo explota una heurística de forma voraz.
+
+Si probamos a cambiar la restricción y hacerla más complicada (esta vez no se podrá superar el $5\%$ del total en peso) veremos algunos cambios en los resultados:
+
+{% include image.html
+   path="/assets/images/algoritmos-geneticos/fitness_comparison_50_h1_5.png"
+   caption="Convergencia de Greedy H1 vs GA + Soft vs GA + Hard - Tamaño 50, restricción 5%"
+   width="500"
+%}
+
+```
+=== SOFT CONSTRAINTS ===
+Best fitness score: 6.690651548303056
+Total weight: 3.7789294493745977
+Total value: 9.54957977253405
+Max capacity: 2
+
+=== HARD CONSTRAINTS ===
+Best fitness score: 0.0
+Total weight: 12.428228685377153
+Total value: 13.08190249886287
+Max capacity: 2
+
+=== GREEDY ===
+Best fitness score: 3.720164332689731
+Total weight: 1.9952584283072372
+Total value: 3.720164332689731
+Max capacity: 2
+```
+
+Estos resultados ya son más interesantes. El algoritmo genético es igual en las dos comparaciones, pero la forma de evaluar es totalmente distinta. Con penalizaciones suaves o relativas, el algoritmo ha sido capaz de evaluar correctamente soluciones que eran a priori malas y las ha explorado y explotado inteligentemente obteniendo una solución final. En cambio las evaluaciones duras han destrozado la convergencia del genético y ha devuelto una solución sin refinar. De todas formas, el otro método no ha sido capaz de cumplir las restricciones impuestas, pasándose por $1.7$. Depende del contexto del problema, y esto es algo a evaluar dependiendo de las necesidades, esto podrá ser factible o inadmisible. La solución del *Greedy*, pese a no ser muy buena, cumple a rajatabla con el peso máximo permitido.
+
+Probemos ahora con un tamaño más desafiante, un total de $200$ objetos y solo un $10\%$ de capacidad sobre el total permitido en la mochila:
+
+{% include image.html
+   path="/assets/images/algoritmos-geneticos/fitness_comparison_200_h1_10.png"
+   caption="Convergencia de Greedy H1 vs GA + Soft vs GA + Hard - Tamaño 200, restricción 10%"
+   width="500"
+%}
+
+```
+=== SOFT CONSTRAINTS ===
+Best fitness score: 49.986377238685016
+Total weight: 19.824506933869955
+Total value: 49.986377238685016
+Max capacity: 20
+
+=== HARD CONSTRAINTS ===
+Best fitness score: 0.0
+Total weight: 56.058575444418665
+Total value: 48.303356578426225
+Max capacity: 20
+
+=== GREEDY ===
+Best fitness score: 40.175288587973824
+Total weight: 19.997759251464615
+Total value: 40.175288587973824
+Max capacity: 20
+```
+
+Las penalización dura sigue sin converger, mientras que el *GA* con *fitness* suave da los mejores resultados, con una convergencia suave y sin llegar a violar las restricciones impuestas. Los genéticos parecen una muy buena opción hasta ahora, pero probemos a cambiar una variable. Esta vez vamos a probar otra heurística en el algoritmo *Greedy*. La heurística número $3$, que ordena los objetos por el valor en relación al peso:
+
+{% include image.html
+   path="/assets/images/algoritmos-geneticos/fitness_comparison_200_h3_10.png"
+   caption="Convergencia de Greedy H3 vs GA + Soft vs GA + Hard - Tamaño 200, restricción 10%"
+   width="500"
+%}
+
+```
+=== SOFT CONSTRAINTS ===
+Best fitness score: 43.462952020478
+Total weight: 19.97950402605357
+Total value: 43.462952020478
+Max capacity: 20
+
+=== HARD CONSTRAINTS ===
+Best fitness score: 0.0
+Total weight: 51.83288833879617
+Total value: 46.00902743825782
+Max capacity: 20
+
+=== GREEDY ===
+Best fitness score: 46.28502186266642
+Total weight: 19.94989976262729
+Total value: 46.28502186266642
+Max capacity: 20
+```
+
+El *Greedy* con la tercera heurística es no solo el más rápido, sino que es mejor, además de tener la garantía de no violar la restricción. Estos resultados ponen de manifiesto una idea clásica en optimización: una heurística sencilla, bien alineada con la estructura del problema, puede superar con facilidad a métodos mucho más complejos. En este caso, una ordenación simple basada en la eficiencia valor–peso permite al algoritmo *Greedy* encontrar soluciones de alta calidad de forma extremadamente rápida y sin violar las restricciones, incluso en escenarios más exigentes.
+
+No obstante, esta ventaja depende fuertemente de la calidad de la heurística elegida. Cuando dicha heurística no captura adecuadamente la dinámica del problema, el rendimiento del enfoque voraz se degrada rápidamente. En contraste, los algoritmos genéticos muestran un comportamiento mucho más estable a lo largo de todos los escenarios analizados (sin ser esto un estudio riguroso ni de lejos). Con un diseño adecuado de la función de *fitness*, los *GAs* son capaces de explorar y explotar el espacio de soluciones de forma robusta, adaptándose a distintas restricciones y tamaños del problema sin colapsar.
+
+## Otras codificaciones
+
+Finalmente, quería explicar que los algoritmos genéticos son en origen binarios, pero también aceptan otras codificaciones, como la continua, es decir, valores reales. Esto requiere de una adaptación sobre los operadores ya explicados para poder manejar este tipo de representación, pero la naturaleza del algoritmo es la misma. Este tipo de codificación abre la puerta a resolver problemas de optimización continua. He preparado una versión continua del *GA*, con ayuda de *ChatGPT* para crear unas animaciones, de forma que quede claro visualmente como converge la población hacia el máximo de la función definida. Las funciones que va a optimizar son las siguientes:
+1. **Sphere**
+
+   $$
+   f(x,y) = -\left(x^2 + y^2\right)
+   $$
+
+2. **Rastrigin**
+
+   $$
+   f(x,y) = -\left[ 2A + \left(x^2 - A\cos(2\pi x)\right) + \left(y^2 - A\cos(2\pi y)\right) \right],
+   \quad A = 10
+   $$
+
+3. **Ackley**
+
+    $$
+    f(x,y) = -\left[
+    -20\, e^{-0.2\sqrt{0.5(x^2 + y^2)}}
+    - e^{0.5(\cos(2\pi x) + \cos(2\pi y))}
+    + e + 20
+    \right]
+    $$
+
+4. **Booth**
+
+   $$
+   f(x,y) = -\left[(x + 2y - 7)^2 + (2x + y - 5)^2\right]
+   $$
+
+{% include image_grid.html 
+   paths="/assets/images/algoritmos-geneticos/ga_ackley.gif|
+          /assets/images/algoritmos-geneticos/ga_booth.gif|
+          /assets/images/algoritmos-geneticos/ga_rastrigin.gif|
+          /assets/images/algoritmos-geneticos/ga_sphere.gif"
+   caption="Evolución del algoritmo genético en funciones benchmark"
+%}
+
+He de ser sincero, solo quería añadir estas animaciones porque mola. 
+
+Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programarlas e investigar en el camino las distintas decisiones de diseño que se pueden tomar es enriquecedor.

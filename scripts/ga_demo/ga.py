@@ -29,22 +29,32 @@ class Greedy:
         solution = np.zeros(n, dtype=int)
 
         if self.heuristic == "h1":
-            ratios = self.values
+            ratios = self.values  
+            order = np.argsort(-ratios)
         elif self.heuristic == "h2":
-            ratios = self.weights
+            ratios = self.weights  
+            order = np.argsort(ratios)  
         else:
-            ratios = self.values / self.weights
-        order = np.argsort(-ratios)
+            ratios = self.values / self.weights 
+            order = np.argsort(-ratios)
 
         remaining_capacity = self.max_capacity
+        best_fitness = float("-inf")
 
         for i in order:
             if self.weights[i] <= remaining_capacity:
                 solution[i] = 1
                 remaining_capacity -= self.weights[i]
 
-            fitness = self.fitness_func(solution.reshape(1, -1))[0]
-            self.best_fitness_history.append(fitness)
+                current_fitness = self.fitness_func(solution.reshape(1, -1))[0]
+                if current_fitness > best_fitness:
+                    best_fitness = current_fitness
+                    self.best_fitness_history.append(best_fitness)
+
+        if not self.best_fitness_history:
+            self.best_fitness_history.append(
+                self.fitness_func(solution.reshape(1, -1))[0]
+            )
 
         return solution
 
@@ -226,10 +236,10 @@ def plot_fitness_comparison(
 
 
 def main():
-    items_number = 50
+    items_number = 200
     weights = np.random.rand(items_number)
     values = np.random.rand(items_number)
-    max_capacity = int(0.2 * items_number)
+    max_capacity = int(0.1 * items_number)
 
     print(f"Weight of every object: {weights}")
     print(f"Total weight of all objects: {np.sum(weights)}\n")
@@ -248,7 +258,7 @@ def main():
         "population_size": 30,
         "num_genes": items_number,
         "mutation_rate": 0.02,
-        "max_iter": 500,
+        "max_iter": 1000,
         "epsilon": 0,
         "crossover_rate": 0.8,
         "elitism_rate": 0.2,

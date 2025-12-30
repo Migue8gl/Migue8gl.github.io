@@ -440,3 +440,35 @@ li {
   color: #6e7681;
 }
 
+.image-grid {
+  margin: 2rem auto;
+  max-width: 100%;
+}
+
+.image-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.grid-image {
+  width: calc(50% - 0.5rem);
+  height: auto;
+  object-fit: cover;
+}
+
+figcaption.center {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #666;
+}
+
+/* Responsive: una imagen por fila en móviles */
+@media (max-width: 768px) {
+  .grid-image {
+    width: 100%;
+  }
+}

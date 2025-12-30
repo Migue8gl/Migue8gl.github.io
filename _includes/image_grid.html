@@ -1,0 +1,14 @@
+<!-- _includes/image_grid.html -->
+<figure class="image-grid">
+  <div class="image-row">
+    {% assign images = include.paths | split: '|' %}
+    {% for path in images %}
+      <img src="{{ path | strip }}" alt="{{ include.caption }}" class="grid-image" />
+      {% assign mod = forloop.index | modulo: 2 %}
+      {% if mod == 0 and forloop.last == false %}
+        </div><div class="image-row">
+      {% endif %}
+    {% endfor %}
+  </div>
+  <figcaption class="center">{{ include.caption }}</figcaption>
+</figure>
