@@ -5,7 +5,7 @@ title: Sobre optimización y algoritmos genéticos
 
 ## Introducción
 
-La optimización es un campo de estudio amplio y muy interesante. Mis primeras interacciones con este campo empezaron jugueteando con regresiones lineales, usando el clásico descenso del gradiente, programado manualmente. No solo resulta satisfactorio desde el punto de vista teórico, sino que también es extremadamente útil en la práctica. Cuando hablamos de optimización, la idea principal que suele venirnos a la cabeza es la de realizar una tarea de la mejor manera posible, utilizando la menor cantidad de recursos.
+La optimización es un campo de estudio amplio y muy interesante. Mis primeras interacciones con este campo empezaron jugueteando con regresiones lineales y usando el clásico descenso del gradiente, programado manualmente. No solo resulta satisfactorio desde el punto de vista teórico, sino que también es extremadamente útil en la práctica. Cuando hablamos de optimización, la idea principal que suele venirnos a la cabeza es la de realizar una tarea de la mejor manera posible, utilizando la menor cantidad de recursos.
 
 En nuestro día a día, que suele ser bastante ajetreado, todos intentamos optimizar distintos procesos cotidianos: limpiar, cocinar, desplazarnos, estudiar o trabajar, entre otros. De forma consciente o no, tomamos decisiones orientadas a ahorrar tiempo, esfuerzo o dinero, lo que constituye un ejemplo claro de optimización aplicada a la vida diaria.
 
@@ -13,7 +13,7 @@ En el ámbito del comercio, la optimización es un elemento casi inherente al pr
 
 Este tipo de situaciones ilustran claramente problemas de optimización. En el caso del transporte, existen múltiples rutas posibles entre distintos destinos, pero no todas son igualmente buenas. El objetivo es encontrar el recorrido óptimo en función de ciertas variables, como el tráfico en un momento determinado, la existencia de obras, la distancia entre puntos de entrega o el consumo de combustible. La optimización permite modelar este problema y determinar, entre todas las alternativas posibles, aquella que minimiza el coste total o maximiza la eficiencia del proceso.
 
-Dentro de este campo de estudio existen multitud de herramientas matemáticas y de métodos para optimizar un problema. Como breve resumen, enumeraré algunos de los sistemas más usados:
+Dentro de este campo de estudio, existen multitud de herramientas matemáticas y de métodos para optimizar un problema. Como breve resumen, enumeraré algunos de los enfoques más usados:
 
 - **Algoritmos basados en gradiente**: utilizan información de derivadas de la función objetivo para guiar la búsqueda hacia óptimos locales o globales. Son muy eficientes cuando la función es continua y diferenciable (por ejemplo, descenso por gradiente o métodos de *Newton*).
 - **Metaheurísticas**: métodos de búsqueda aproximada inspirados en procesos naturales o estrategias probabilísticas. No garantizan el óptimo global, pero son muy útiles en problemas complejos, no lineales o discontinuos. En este blog hablaré sobre los algoritmos genéticos, el ejemplo más básico de metaheurística.
