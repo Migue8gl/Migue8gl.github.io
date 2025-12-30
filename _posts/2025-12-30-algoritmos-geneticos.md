@@ -38,9 +38,9 @@ A continuación explicaré brevemente algunos conceptos que son indispensables p
 
 ## Conceptos clave
 
-### Función objetivo
+### Función **fitness**
 
-Esta función establece el objetivo a alcanzar para la resolución de nuestro problema. Puede evaluar como de "buena" es una solución, es una forma de cuantificar el rendimiento. También puede ser vista como una forma de cuantificar un error. En ese caso, deberíamos minimizarla.
+Esta función establece una forma de evaluar soluciones para nuestro problema. Es una forma de cuantificar el rendimiento. También puede ser vista como una forma de cuantificar un error. En ese caso, deberíamos minimizarla.
 
 ### Óptimos globales y locales
 
@@ -50,7 +50,7 @@ Esta función establece el objetivo a alcanzar para la resolución de nuestro pr
    width="500"
 %}
 
-Si imaginamos una función como una superficie, quizá semejante a una cadena montañosa, con picos y llena de valles y depresiones. Así es más sencillo entender estos conceptos. Un óptimo global sería encontrar el punto más bajo de toda la superficie, el valle más profundo de la región. En la búsqueda por descender lo máximo posible, es posible quedarse atrapado en depresiones menos profundas que, en relación con su entorno inmediato, son las más bajas. Estos son los óptimos locales.
+Imaginemos una función como una superficie en $3D$, quizá semejante a una cadena montañosa, con picos y llena de valles y depresiones. Así es más sencillo entender estos conceptos. Encontrar el óptimo global correspondería a encontrar el punto más bajo de toda la superficie, el valle más profundo de la región. En la búsqueda por descender lo máximo posible, es posible quedarse atrapado en depresiones menos profundas que, en relación con su entorno inmediato, son las más bajas. Estos son los óptimos locales.
 
 Un senderista que se mueve por este terreno no tiene una visión completa del paisaje. Solo percibe la pendiente inmediata que le rodea. Su estrategia es simple: avanzar siempre cuesta abajo.
 
@@ -62,23 +62,23 @@ Dentro de todos los métodos de optimización existentes, hay unos que son basta
 
 ## Algoritmos genéticos
 
-La premisa es básica. Esta familia de algoritmos se inspiran en las ideas de *Darwin* sobre la evolución, más concretamente en los mecanismos de selección natural y supervivencia del más apto, donde los individuos mejor adaptados al entorno tienen mayor probabilidad de reproducirse y transmitir sus características a la siguiente generación.
+La premisa es básica. Esta familia de algoritmos se inspira en las ideas de *Darwin* sobre la evolución, más concretamente, en los mecanismos de selección natural y supervivencia del más apto, donde los individuos mejor adaptados al entorno tienen mayor probabilidad de reproducirse y transmitir sus características a la siguiente generación.
 
-Estos algoritmos (y todas las metaheurísticas) tienen dos fases generales. La exploración y la explotación.
+Estos sistemas (y todas las metaheurísticas) tienen dos fases generales de vital importancia y muy sensibles. La exploración y la explotación.
 
 ### Exploración y explotación
 
-Como he mencionado antes, la aleatoriedad es una parte clave de estas técnicas. Esta característica permite explorar zonas del espacio que quizá no habrían sido visitadas en primera instancia por parecer menos prometedoras. Gracias a ello, se permite una exploración más amplia y se facilita que el algoritmo escapar de óptimos locales. Esta primera fase de búsqueda es la conocida como **exploración**.
+Como he mencionado antes, la aleatoriedad es una parte clave de estas técnicas. Esta característica permite explorar zonas del espacio que quizá no habrían sido visitadas en primera instancia por parecer menos prometedoras. Gracias a ello, se permite una exploración más amplia y se facilita escapar de óptimos locales. Esta primera fase de búsqueda es la conocida como **exploración**.
 
 La **explotación** viene justo después. Esta es la habilidad de refinar y ajustar lo máximo posible una zona de soluciones, encontrando la mejor solución posible dentro de esta.
 
-El balance entre ambas fases es muy sensible y muy necesario. Si la exploración dominase, el algoritmo tardaría mucho tiempo en conseguir una solución, o incluso no convergería a ninguna. En cambio, si la explotación fuese más fuerte que la exploración, la convergencia sería muy prematura y posiblemente se encontraría una solución subóptima, cuando podría haber muchas mejores opciones sin descubrir.
+El balance entre ambas fases es muy sensible y es necesario ajustarlo con finura. Si la exploración dominase, el algoritmo tardaría mucho tiempo en conseguir una solución, o incluso no convergería a ninguna. En cambio, si la explotación fuese más fuerte que la exploración, la convergencia sería muy prematura y posiblemente se encontraría una solución subóptima, cuando podría haber muchas mejores opciones sin descubrir.
 
-Los algoritmos genéticos son capaces de explorar y explotar gracias a su variada selección de operadores. Aunque antes de profundizar en detalles sobre estos, hay que entender el algoritmo de forma general.
+Los algoritmos genéticos son capaces de explorar y explotar gracias a su variada selección de operadores. Aunque, antes de profundizar en detalles sobre estos, hay que entender el algoritmo de forma general.
 
-Las **GAs** trabajan con una población de soluciones codificadas normalmente en forma binaria. Cada solución, llamada cromosoma, está compuesta por genes (*bits*), y el conjunto de cromosomas constituye la población. Esta población se inicializa de manera aleatoria para favorecer la exploración del espacio de soluciones y, posteriormente, cada cromosoma es evaluado según su calidad, lo que hace posible ordenar las soluciones de mejor a peor.
+Las **GAs** trabajan con una población de soluciones codificadas normalmente en forma binaria. Cada solución, llamada cromosoma, está compuesta por genes (*bits*), y el conjunto de cromosomas constituye la población. Esta población se inicializa de manera aleatoria para favorecer la exploración del espacio de soluciones y, posteriormente, cada cromosoma es evaluado según su calidad, lo que hace posible ordenar las soluciones de mejor a peor. A partir de esta evaluación comienza el proceso evolutivo, que se desarrolla en generaciones. En cada generación se seleccionan los cromosomas más aptos para reproducirse, sin eliminar completamente la diversidad. 
 
-A partir de esta evaluación comienza el proceso evolutivo, que se desarrolla en generaciones. En cada una se seleccionan los cromosomas más aptos para reproducirse, aplicando el principio de supervivencia del más apto sin eliminar completamente la diversidad. Los operadores genéticos principales son el cruce, que combina información de dos progenitores para generar nuevas soluciones, y la mutación, que introduce cambios aleatorios para evitar la convergencia prematura. Con apoyo del elitismo, que preserva las mejores soluciones, este ciclo se repite hasta cumplir un criterio de parada, tomando finalmente el mejor cromosoma como solución aproximada al problema. A continuación proporciono un diagrama general del ciclo evolutivo:
+Los operadores genéticos principales son el cruce, que combina información de dos progenitores para generar nuevas soluciones, y la mutación, que introduce cambios aleatorios para evitar la convergencia prematura. El operador de selección es también importante, pues es el encargado de indicar que cromosomas deben cruzarse entre sí. También es posible añadir una mecánica de elitismo, para mejorar la convergencia. Con apoyo del elitismo, que preserva las mejores soluciones, este ciclo se repite hasta cumplir un criterio de parada, tomando finalmente el mejor cromosoma como solución aproximada al problema. A continuación proporciono un diagrama general del ciclo evolutivo:
 
 ```mermaid
 graph TD
@@ -314,7 +314,7 @@ def fitness_knapsack_soft(
 
 ### Resolución
 
-Vamos a comparar el **GA** con varios tamaños de problema y distintas restricciones con la función de evaluación suave y la dura. Además vamos a compararlo un algoritmo *Greedy* para analizar las diferencias en calidad de solución, tiempo de cómputo y cumplimiento de restricciones. El algoritmo *Greedy* es muy simple. Utiliza una heurística básica de ordenación y va escogiendo el mejor camino posible en cada paso hasta completar la solución final. Es muy rápido y, dependiendo de la heurística elegida, muy competente.
+Vamos a comparar el **GA** con varios tamaños de problema y distintas restricciones con la función de evaluación suave y la dura. Además vamos a compararlo con un algoritmo *Greedy* para analizar las diferencias en calidad de solución, tiempo de cómputo y cumplimiento de restricciones. El algoritmo *Greedy* es muy simple. Utiliza una heurística básica de ordenación y va escogiendo el mejor camino posible en cada paso hasta completar la solución final. Es muy rápido y, dependiendo de la heurística elegida, muy competente.
 
 ```python
 class Greedy:
@@ -358,7 +358,7 @@ class Greedy:
         return solution
 ```
 
-Para *Greedy* he definido tres heurísticas básicas. Ordenación de mejores objetos en base a el valor, el peso y el valor relativo al peso. 
+Para *Greedy* he definido tres heurísticas básicas. Ordenación de mejores objetos en función del valor, del peso y del valor relativo al peso. 
 
 <table border="1" cellspacing="0" cellpadding="6">
   <thead>
@@ -479,7 +479,7 @@ Total value: 40.175288587973824
 Max capacity: 20
 ```
 
-Las penalización dura sigue sin converger, mientras que el *GA* con *fitness* suave da los mejores resultados, con una convergencia suave y sin llegar a violar las restricciones impuestas. Los genéticos parecen una muy buena opción hasta ahora, pero probemos a cambiar una variable. Esta vez vamos a probar otra heurística en el algoritmo *Greedy*. La heurística número $3$, que ordena los objetos por el valor en relación al peso:
+La penalización dura sigue sin converger, mientras que el *GA* con *fitness* suave da los mejores resultados, con una convergencia suave y sin llegar a violar las restricciones impuestas. Los genéticos parecen una muy buena opción hasta ahora, pero probemos a cambiar una variable. Esta vez vamos a probar otra heurística en el algoritmo *Greedy*. La heurística número $3$, que ordena los objetos por el valor en relación al peso:
 
 {% include image.html
    path="/assets/images/algoritmos-geneticos/fitness_comparison_200_h3_10.png"
@@ -513,7 +513,7 @@ No obstante, esta ventaja depende fuertemente de la calidad de la heurística el
 
 ## Otras codificaciones
 
-Finalmente, quería explicar que los algoritmos genéticos son en origen binarios, pero también aceptan otras codificaciones, como la continua, es decir, valores reales. Esto requiere de una adaptación sobre los operadores ya explicados para poder manejar este tipo de representación, pero la naturaleza del algoritmo es la misma. Este tipo de codificación abre la puerta a resolver problemas de optimización continua. He preparado una versión continua del *GA*, con ayuda de *ChatGPT* para crear unas animaciones, de forma que quede claro visualmente como converge la población hacia el máximo de la función definida. Las funciones que va a optimizar son las siguientes:
+Finalmente, quería explicar que los algoritmos genéticos son en origen binarios, pero también aceptan otras codificaciones, como la continua, es decir, valores reales. Esto requiere de una adaptación sobre los operadores ya explicados para poder manejar este tipo de representación, pero la naturaleza del algoritmo es la misma. Este tipo de codificación abre la puerta a resolver problemas de optimización continua. He preparado una versión continua del *GA*, con ayuda de *ChatGPT* para crear unas animaciones, de forma que quede claro visualmente cómo converge la población hacia el máximo de la función definida. Las funciones que va a optimizar son las siguientes:
 1. **Sphere**
 
    $$
@@ -553,4 +553,4 @@ Finalmente, quería explicar que los algoritmos genéticos son en origen binario
 
 He de ser sincero, solo quería añadir estas animaciones porque mola. 
 
-Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programarlas e investigar en el camino las distintas decisiones de diseño que se pueden tomar es enriquecedor.
+Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar *GAs*. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar es enriquecedor.
