@@ -358,3 +358,85 @@ li {
   margin: 3rem auto;
   opacity: 0.8;
 }
+
+.table-of-contents {
+  background: transparent;
+  padding: 2rem 0;
+  margin: 2.5rem 0;
+  border-top: 1px solid #373737;
+  border-bottom: 1px solid #373737;
+}
+
+.table-of-contents::before {
+  content: "Índice";
+  display: block;
+  font-size: 1.1rem;
+  color: #e6edf3;
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+.table-of-contents ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  counter-reset: toc-counter;
+}
+
+.table-of-contents ul ul {
+  margin-top: 0.5rem;
+  padding-left: 2rem;
+}
+
+.table-of-contents > ul > li {
+  counter-increment: toc-counter;
+  margin: 0.75rem 0;
+  padding-left: 0;
+}
+
+.table-of-contents > ul > li::before {
+  content: counter(toc-counter) ".";
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  color: #3b82f6;
+  font-size: 0.9em;
+  margin-right: 0.75rem;
+  font-weight: 400;
+}
+
+.table-of-contents a {
+  color: #c9d1d9;
+  font-weight: 300;
+  transition: color 0.15s ease;
+}
+
+.table-of-contents a:hover {
+  color: #3b82f6;
+}
+
+/* Estilos para subniveles */
+.table-of-contents ul ul li {
+  counter-increment: none;
+  margin: 0.5rem 0;
+}
+
+.table-of-contents ul ul li::before {
+  content: "—";
+  color: #484f58;
+  margin-right: 0.75rem;
+}
+
+.table-of-contents ul ul li a {
+  font-size: 0.95em;
+  color: #8b949e;
+}
+
+.table-of-contents ul ul ul li::before {
+  content: "·";
+  color: #484f58;
+}
+
+.table-of-contents ul ul ul li a {
+  font-size: 0.9em;
+  color: #6e7681;
+}
+

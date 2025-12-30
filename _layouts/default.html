@@ -1,9 +1,9 @@
 ---
 layout: none
 ---
-
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ '/css/styles.css' | relative_url }}?v={{ site.time | date: '%s' }}">
@@ -11,12 +11,11 @@ layout: none
   <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
   <meta name="description" content="{{ page.description }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-        displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
         processEscapes: true
       },
       options: {
@@ -28,9 +27,14 @@ layout: none
   </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' })
+    await mermaid.run({ querySelector: 'code.language-mermaid' })
+  </script>
 </head>
-<body>
+<body{% if page.layout=='post' %} class="post-page" {% endif %}>
   <!-- Header -->
   <header>
     <nav>
@@ -41,23 +45,100 @@ layout: none
       </center>
     </nav>
   </header>
-
   <hr>
-
   <!-- Main Content -->
   <main>
     {{ content }}
   </main>
-
   <!-- Footer -->
   <footer>
-  <hr>
-  <center>
-    <small>
-      <a href="{{ site.github_link }}">GitHub</a> ·
-      <a href="{{ site.buymeacoffee_link }}">Buy me a coffee</a>
-    </small>
-  </center>
-</footer>
-</body>
+    <hr>
+    <center>
+      <small>
+        <a href="{{ site.github_link }}">GitHub</a> ·
+        <a href="{{ site.buymeacoffee_link }}">Buy me a coffee</a>
+      </small>
+    </center>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Solo ejecutar en páginas con clase post-page
+      if (!document.body.classList.contains('post-page')) {
+        return;
+      }
+      const content = document.querySelector('main');
+      const headings = content.querySelectorAll('h2, h3, h4, h5, h6');
+      if (headings.length > 0) {
+        const toc = document.createElement('nav');
+        toc.className = 'table-of-contents';
+        const rootList = document.createElement('ul');
+        let counters = [0, 0, 0, 0, 0]; // Contadores para h2, h3, h4, h5, h6
+        let currentLists = [rootList]; // Stack de listas
+        let lastLevel = 2;
+        headings.forEach((heading, index) => {
+          const level = parseInt(heading.tagName.substring(1));
+          heading.id = heading.id || `heading-${index}`;
+          // Ajustar contadores según el nivel
+          if (level === 2) {
+            counters[0]++;
+            counters[1] = 0;
+            counters[2] = 0;
+            counters[3] = 0;
+            counters[4] = 0;
+          } else if (level === 3) {
+            counters[1]++;
+            counters[2] = 0;
+            counters[3] = 0;
+            counters[4] = 0;
+          } else if (level === 4) {
+            counters[2]++;
+            counters[3] = 0;
+            counters[4] = 0;
+          } else if (level === 5) {
+            counters[3]++;
+            counters[4] = 0;
+          } else if (level === 6) {
+            counters[4]++;
+          }
+          // Generar número
+          let number = counters[0].toString();
+          for (let i = 1; i < level - 1; i++) {
+            if (counters[i] > 0) {
+              number += '.' + counters[i];
+            }
+          }
+          // Gestionar jerarquía de listas
+          if (level > lastLevel) {
+            // Crear sublista
+            const newList = document.createElement('ul');
+            const lastItem = currentLists[currentLists.length - 1].lastElementChild;
+            if (lastItem) {
+              lastItem.appendChild(newList);
+            }
+            currentLists.push(newList);
+          } else if (level < lastLevel) {
+            // Subir niveles
+            const diff = lastLevel - level;
+            for (let i = 0; i < diff; i++) {
+              if (currentLists.length > 1) {
+                currentLists.pop();
+              }
+            }
+          }
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = `#${heading.id}`;
+          link.textContent = `${number}. ${heading.textContent}`;
+          item.appendChild(link);
+          currentLists[currentLists.length - 1].appendChild(item);
+          lastLevel = level;
+        });
+        toc.appendChild(rootList);
+        content.insertBefore(toc, content.firstChild);
+      }
+    });
+  </script>
+  </body>
+
 </html>

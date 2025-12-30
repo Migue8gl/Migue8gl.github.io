@@ -14,19 +14,26 @@ class Greedy:
         weights: np.ndarray,
         values: np.ndarray,
         max_capacity: float,
+        heuristic: str,
         fitness_func: Callable,
     ):
         self.weights = weights
         self.values = values
         self.max_capacity = max_capacity
         self.fitness_func = fitness_func
+        self.heuristic = heuristic
         self.best_fitness_history = []
 
-    def evolve(self) -> np.ndarray:
+    def optimize(self) -> np.ndarray:
         n = len(self.weights)
         solution = np.zeros(n, dtype=int)
 
-        ratios = self.values / self.weights
+        if self.heuristic == "h1":
+            ratios = self.values
+        elif self.heuristic == "h2":
+            ratios = self.weights
+        else:
+            ratios = self.values / self.weights
         order = np.argsort(-ratios)
 
         remaining_capacity = self.max_capacity
@@ -96,7 +103,7 @@ class GA:
         probs = scores / np.sum(scores)
         return np.random.choice(len(scores), 2, replace=False, p=probs)
 
-    def evolve(self) -> np.ndarray:
+    def optimize(self) -> np.ndarray:
         population = self.initialize_population()
         scores = self.fitness_func(population)
 
@@ -223,7 +230,7 @@ def main():
     weights = np.random.rand(items_number)
     values = np.random.rand(items_number)
     max_capacity = int(0.2 * items_number)
-    
+
     print(f"Weight of every object: {weights}")
     print(f"Total weight of all objects: {np.sum(weights)}\n")
     print(f"Value of every object: {values}")
@@ -252,8 +259,8 @@ def main():
     optimizer_hard = GA(fitness_func=fitness_hard, **configs)
 
     print("Running genetic algorithm...\n")
-    best_solution_soft = optimizer_soft.evolve()
-    best_solution_hard = optimizer_hard.evolve()
+    best_solution_soft = optimizer_soft.optimize()
+    best_solution_hard = optimizer_hard.optimize()
 
     print("\n=== SOFT CONSTRAINTS ===")
 
@@ -293,10 +300,11 @@ def main():
         weights=weights,
         values=values,
         max_capacity=max_capacity,
+        heuristic="h3",
         fitness_func=fitness_hard,
     )
 
-    best_solution_greedy = greedy.evolve()
+    best_solution_greedy = greedy.optimize()
 
     print("\n=== GREEDY ===")
 

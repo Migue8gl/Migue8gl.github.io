@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: post
 title: ¿De qué trata este blog?
 ---
-
-# ¿De qué trata este blog?
 
 ¡Hola! Esta es la primera entrada de mi nuevo proyecto, escribir un blog.
 
