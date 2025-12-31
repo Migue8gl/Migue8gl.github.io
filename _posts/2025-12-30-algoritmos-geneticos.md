@@ -419,7 +419,7 @@ Total value: 25.367928277332897
 Max capacity: 20
 ```
 
-Todos los algoritmos muestran buenas soluciones, siendo los *GAs* ligeramente superiores. Aun así, los tres obtienen soluciones muy buenas. Las dos funciones de *fitness* funcionan igual de bien. También se observa que *Greedy* es mucho más rápido, ya que ha tardado en converger menos de $50$ iteraciones, mientras que los genéticos han necesitado más de $100$ para igualar el *score*. Aunque es algo obvio, el *Greedy* no realiza exploración, solo explota una heurística de forma voraz.
+Todos los algoritmos muestran buenas soluciones, siendo los **GAs** ligeramente superiores. Aun así, los tres obtienen soluciones muy buenas. Las dos funciones de *fitness* funcionan igual de bien. También se observa que *Greedy* es mucho más rápido, ya que ha tardado en converger menos de $50$ iteraciones, mientras que los genéticos han necesitado más de $100$ para igualar el *score*. Aunque es algo obvio, el *Greedy* no realiza exploración, solo explota una heurística de forma voraz.
 
 Si probamos a cambiar la restricción y hacerla más complicada (esta vez no se podrá superar el $5\%$ del total en peso) veremos algunos cambios en los resultados:
 
@@ -479,7 +479,7 @@ Total value: 40.175288587973824
 Max capacity: 20
 ```
 
-La penalización dura sigue sin converger, mientras que el *GA* con *fitness* suave da los mejores resultados, con una convergencia suave y sin llegar a violar las restricciones impuestas. Los genéticos parecen una muy buena opción hasta ahora, pero probemos a cambiar una variable. Esta vez vamos a probar otra heurística en el algoritmo *Greedy*. La heurística número $3$, que ordena los objetos por el valor en relación al peso:
+La penalización dura sigue sin converger, mientras que el **GA** con *fitness* suave da los mejores resultados, con una convergencia suave y sin llegar a violar las restricciones impuestas. Los genéticos parecen una muy buena opción hasta ahora, pero probemos a cambiar una variable. Esta vez vamos a probar otra heurística en el algoritmo *Greedy*. La heurística número $3$, que ordena los objetos por el valor en relación al peso:
 
 {% include image.html
    path="/assets/images/algoritmos-geneticos/fitness_comparison_200_h3_10.png"
@@ -509,11 +509,11 @@ Max capacity: 20
 
 El *Greedy* con la tercera heurística es no solo el más rápido, sino que es mejor, además de tener la garantía de no violar la restricción. Estos resultados ponen de manifiesto una idea clásica en optimización: una heurística sencilla, bien alineada con la estructura del problema, puede superar con facilidad a métodos mucho más complejos. En este caso, una ordenación simple basada en la eficiencia valor–peso permite al algoritmo *Greedy* encontrar soluciones de alta calidad de forma extremadamente rápida y sin violar las restricciones, incluso en escenarios más exigentes.
 
-No obstante, esta ventaja depende fuertemente de la calidad de la heurística elegida. Cuando dicha heurística no captura adecuadamente la dinámica del problema, el rendimiento del enfoque voraz se degrada rápidamente. En contraste, los algoritmos genéticos muestran un comportamiento mucho más estable a lo largo de todos los escenarios analizados (sin ser esto un estudio riguroso ni de lejos). Con un diseño adecuado de la función de *fitness*, los *GAs* son capaces de explorar y explotar el espacio de soluciones de forma robusta, adaptándose a distintas restricciones y tamaños del problema sin colapsar.
+No obstante, esta ventaja depende fuertemente de la calidad de la heurística elegida. Cuando dicha heurística no captura adecuadamente la dinámica del problema, el rendimiento del enfoque voraz se degrada rápidamente. En contraste, los algoritmos genéticos muestran un comportamiento mucho más estable a lo largo de todos los escenarios analizados (sin ser esto un estudio riguroso ni de lejos). Con un diseño adecuado de la función de *fitness*, los **GAs** son capaces de explorar y explotar el espacio de soluciones de forma robusta, adaptándose a distintas restricciones y tamaños del problema sin colapsar.
 
 ## Otras codificaciones
 
-Finalmente, quería explicar que los algoritmos genéticos son en origen binarios, pero también aceptan otras codificaciones, como la continua, es decir, valores reales. Esto requiere de una adaptación sobre los operadores ya explicados para poder manejar este tipo de representación, pero la naturaleza del algoritmo es la misma. Este tipo de codificación abre la puerta a resolver problemas de optimización continua. He preparado una versión continua del *GA*, con ayuda de *ChatGPT* para crear unas animaciones, de forma que quede claro visualmente cómo converge la población hacia el máximo de la función definida. Las funciones que va a optimizar son las siguientes:
+Finalmente, quería explicar que los algoritmos genéticos son en origen binarios, pero también aceptan otras codificaciones, como la continua, es decir, valores reales. Esto requiere de una adaptación sobre los operadores ya explicados para poder manejar este tipo de representación, pero la naturaleza del algoritmo es la misma. Este tipo de codificación abre la puerta a resolver problemas de optimización continua. He preparado una versión continua del **GA**, con ayuda de *ChatGPT* para crear unas animaciones, de forma que quede claro visualmente cómo converge la población hacia el máximo de la función definida. Las funciones que va a optimizar son las siguientes:
 1. **Sphere**
 
    $$
@@ -553,4 +553,4 @@ Finalmente, quería explicar que los algoritmos genéticos son en origen binario
 
 He de ser sincero, solo quería añadir estas animaciones porque mola. 
 
-Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar *GAs*. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar, es enriquecedor.
+Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar **GAs**. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar, es enriquecedor.
