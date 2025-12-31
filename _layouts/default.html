@@ -129,7 +129,7 @@ layout: none
           const item = document.createElement('li');
           const link = document.createElement('a');
           link.href = `#${heading.id}`;
-          link.textContent = `${number}. ${heading.textContent}`;
+          link.textContent = heading.textContent;
           item.appendChild(link);
           currentLists[currentLists.length - 1].appendChild(item);
           lastLevel = level;
