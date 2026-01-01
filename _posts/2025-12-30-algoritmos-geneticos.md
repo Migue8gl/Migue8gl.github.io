@@ -561,6 +561,6 @@ Finalmente, quería explicar que los algoritmos genéticos son en origen binario
    caption="Evolución del algoritmo genético en funciones benchmark"
 %}
 
-He de ser sincero, solo quería añadir estas animaciones porque mola. 
+He de ser sincero, solo quería añadir estas animaciones porque molan. 
 
 Los algoritmos genéticos son uno de los muchos métodos metaheurísticos que existen. Desde luego no son los mejores, pero les tengo cariño y su diseño es inteligente a la par que sencillo. Es divertido programar **GAs**. Además, investigar en el camino las distintas decisiones de diseño que se pueden tomar, es enriquecedor.
