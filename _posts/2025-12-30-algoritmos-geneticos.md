@@ -338,22 +338,32 @@ class Greedy:
         solution = np.zeros(n, dtype=int)
 
         if self.heuristic == "h1":
-            ratios = self.values
+            ratios = self.values  
+            order = np.argsort(-ratios)
         elif self.heuristic == "h2":
-            ratios = self.weights
+            ratios = self.weights  
+            order = np.argsort(ratios)  
         else:
-            ratios = self.values / self.weights
-        order = np.argsort(-ratios)
+            ratios = self.values / self.weights 
+            order = np.argsort(-ratios)
 
         remaining_capacity = self.max_capacity
+        best_fitness = float("-inf")
 
         for i in order:
             if self.weights[i] <= remaining_capacity:
                 solution[i] = 1
                 remaining_capacity -= self.weights[i]
 
-            fitness = self.fitness_func(solution.reshape(1, -1))[0]
-            self.best_fitness_history.append(fitness)
+                current_fitness = self.fitness_func(solution.reshape(1, -1))[0]
+                if current_fitness > best_fitness:
+                    best_fitness = current_fitness
+                    self.best_fitness_history.append(best_fitness)
+
+        if not self.best_fitness_history:
+            self.best_fitness_history.append(
+                self.fitness_func(solution.reshape(1, -1))[0]
+            )
 
         return solution
 ```
