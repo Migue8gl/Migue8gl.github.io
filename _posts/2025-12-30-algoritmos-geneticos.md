@@ -1,7 +1,19 @@
 ---
 layout: post
-title: Sobre optimización y algoritmos genéticos
+title: "Algoritmos genéticos: optimización, teoría y ejemplos en Python"
+description: >
+  Guía completa sobre algoritmos genéticos y optimización:
+  fundamentos teóricos, función fitness, problema de la mochila,
+  comparativa con greedy y ejemplos prácticos en Python.
+tags:
+  - algoritmos genéticos
+  - optimización
+  - metaheurísticas
+  - machine learning
+  - python
+image: /assets/images/algoritmos-geneticos/ga_ackley.gif
 ---
+
 
 ## Introducción
 
@@ -16,7 +28,8 @@ Este tipo de situaciones ilustran claramente problemas de optimización. En el c
 Dentro de este campo de estudio, existen multitud de herramientas matemáticas y de métodos para optimizar un problema. Como breve resumen, enumeraré algunos de los enfoques más usados:
 
 - **Algoritmos basados en gradiente**: utilizan información de derivadas de la función objetivo para guiar la búsqueda hacia óptimos locales o globales. Son muy eficientes cuando la función es continua y diferenciable (por ejemplo, descenso por gradiente o métodos de *Newton*).
-- **Metaheurísticas**: métodos de búsqueda aproximada inspirados en procesos naturales o estrategias probabilísticas. No garantizan el óptimo global, pero son muy útiles en problemas complejos, no lineales o discontinuos. En este blog hablaré sobre los algoritmos genéticos, el ejemplo más básico de metaheurística.
+- **Metaheurísticas**: métodos de búsqueda aproximada inspirados en procesos naturales o estrategias probabilísticas. No garantizan el óptimo global, pero son muy útiles en problemas complejos, no lineales o discontinuos. En este blog hablaré sobre Los **algoritmos genéticos**
+([definición formal](https://en.wikipedia.org/wiki/Genetic_algorithm)), el ejemplo más básico de metaheurística.
 - **Métodos exactos**: técnicas matemáticas que garantizan encontrar la solución óptima, como la programación lineal, entera o convexa. Suelen ser computacionalmente costosos y aplicables solo a problemas con una estructura bien definida.
 - **Métodos heurísticos**: estrategias diseñadas específicamente para un tipo de problema concreto, que priorizan la rapidez frente a la optimalidad. Son comunes en problemas de gran escala o en tiempo real.
 
@@ -242,7 +255,7 @@ def optimize(self) -> np.ndarray:
 
 ## El problema de la mochila
 
-Como problema de ejemplo para optimizar y visualizar el comportamiento de este algoritmo he escogido el *problema de la mochila* o *Knapsack Problem*, un clásico.
+Como problema de ejemplo para optimizar y visualizar el comportamiento de este algoritmo he escogido el *problema de la mochila* o [Knapsack Problem](https://en.wikipedia.org/wiki/Knapsack_problem), un clásico. 
 
 {% include image.html
    path="/assets/images/algoritmos-geneticos/knapsack-problem1.jpg"

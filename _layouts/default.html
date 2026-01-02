@@ -2,15 +2,65 @@
 layout: none
 ---
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
-  <title>{{ page.title }}</title>
+  <!-- Basic -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title -->
+  <title>
+    {% if page.title %}
+      {{ page.title }} | {{ site.title }}
+    {% else %}
+      {{ site.title }}
+    {% endif %}
+  </title>
+
+  <!-- Description -->
+  <meta name="description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  {% endif %}
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title }}">
+  <meta name="twitter:description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml"
+        title="{{ site.title }}"
+        href="{{ '/feed.xml' | relative_url }}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="{{ '/css/styles.css' | relative_url }}?v={{ site.time | date: '%s' }}">
   <link rel="stylesheet" href="{{ '/css/syntax.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}">
-  <meta name="description" content="{{ page.description }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://polyfill.io">
+
+  <!-- MathJax -->
   <script>
     window.MathJax = {
       tex: {
@@ -25,17 +75,44 @@ layout: none
       }
     };
   </script>
+
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <!-- Mermaid -->
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true, theme: 'neutral' })
-    await mermaid.run({ querySelector: 'code.language-mermaid' })
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    await mermaid.run({ querySelector: 'code.language-mermaid' });
   </script>
+
+  <!-- Structured Data -->
+  {% if page.layout == 'post' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title }}",
+    "description": "{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ site.author }}"
+    },
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ page.url | absolute_url }}"
+    }
+  }
+  </script>
+  {% endif %}
 </head>
+
 {% include analytics.html %}
-<body{% if page.layout=='post' %} class="post-page" {% endif %}>
+
+<body{% if page.layout == 'post' %} class="post-page"{% endif %}>
+
   <!-- Header -->
   <header>
     <nav>
@@ -46,11 +123,14 @@ layout: none
       </center>
     </nav>
   </header>
+
   <hr>
-  <!-- Main Content -->
+
+  <!-- Main -->
   <main>
     {{ content }}
   </main>
+
   <!-- Footer -->
   <footer>
     <hr>
@@ -62,84 +142,54 @@ layout: none
     </center>
   </footer>
 
+  <!-- TOC -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Solo ejecutar en páginas con clase post-page
-      if (!document.body.classList.contains('post-page')) {
-        return;
-      }
+      if (!document.body.classList.contains('post-page')) return;
+
       const content = document.querySelector('main');
       const headings = content.querySelectorAll('h2, h3, h4, h5, h6');
-      if (headings.length > 0) {
-        const toc = document.createElement('nav');
-        toc.className = 'table-of-contents';
-        const rootList = document.createElement('ul');
-        let counters = [0, 0, 0, 0, 0]; // Contadores para h2, h3, h4, h5, h6
-        let currentLists = [rootList]; // Stack de listas
-        let lastLevel = 2;
-        headings.forEach((heading, index) => {
-          const level = parseInt(heading.tagName.substring(1));
-          heading.id = heading.id || `heading-${index}`;
-          // Ajustar contadores según el nivel
-          if (level === 2) {
-            counters[0]++;
-            counters[1] = 0;
-            counters[2] = 0;
-            counters[3] = 0;
-            counters[4] = 0;
-          } else if (level === 3) {
-            counters[1]++;
-            counters[2] = 0;
-            counters[3] = 0;
-            counters[4] = 0;
-          } else if (level === 4) {
-            counters[2]++;
-            counters[3] = 0;
-            counters[4] = 0;
-          } else if (level === 5) {
-            counters[3]++;
-            counters[4] = 0;
-          } else if (level === 6) {
-            counters[4]++;
-          }
-          // Generar número
-          let number = counters[0].toString();
-          for (let i = 1; i < level - 1; i++) {
-            if (counters[i] > 0) {
-              number += '.' + counters[i];
-            }
-          }
-          // Gestionar jerarquía de listas
-          if (level > lastLevel) {
-            // Crear sublista
-            const newList = document.createElement('ul');
-            const lastItem = currentLists[currentLists.length - 1].lastElementChild;
-            if (lastItem) {
-              lastItem.appendChild(newList);
-            }
-            currentLists.push(newList);
-          } else if (level < lastLevel) {
-            // Subir niveles
-            const diff = lastLevel - level;
-            for (let i = 0; i < diff; i++) {
-              if (currentLists.length > 1) {
-                currentLists.pop();
-              }
-            }
-          }
-          const item = document.createElement('li');
-          const link = document.createElement('a');
-          link.href = `#${heading.id}`;
-          link.textContent = heading.textContent;
-          item.appendChild(link);
-          currentLists[currentLists.length - 1].appendChild(item);
-          lastLevel = level;
-        });
-        toc.appendChild(rootList);
-        content.insertBefore(toc, content.firstChild);
-      }
+      if (!headings.length) return;
+
+      const toc = document.createElement('nav');
+      toc.className = 'table-of-contents';
+      toc.setAttribute('aria-label', 'Tabla de contenidos');
+
+      const title = document.createElement('h2');
+      title.textContent = 'Contenido';
+      toc.appendChild(title);
+
+      const rootList = document.createElement('ul');
+      let currentLists = [rootList];
+      let lastLevel = 2;
+
+      headings.forEach((heading, index) => {
+        const level = parseInt(heading.tagName.substring(1));
+        heading.id ||= `heading-${index}`;
+
+        if (level > lastLevel) {
+          const newList = document.createElement('ul');
+          currentLists[currentLists.length - 1].lastElementChild?.appendChild(newList);
+          currentLists.push(newList);
+        } else if (level < lastLevel) {
+          currentLists.splice(level - 1);
+        }
+
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${heading.id}`;
+        a.textContent = heading.textContent;
+
+        li.appendChild(a);
+        currentLists[currentLists.length - 1].appendChild(li);
+        lastLevel = level;
+      });
+
+      toc.appendChild(rootList);
+      content.insertBefore(toc, content.firstChild);
     });
   </script>
-  </body>
 
+</body>
 </html>
+
