@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Miguel García
-description: Hola, soy Miguel García. En este blog escribiré sobre *Machine Learning* y, de vez en cuando, sobre otras cosas que me interesen.
+description: Hola, soy Miguel García. En este blog escribiré sobre Machine Learning, Data Science y, de vez en cuando, sobre otras cosas que me produzcan curiosidad. Disfruta de la lectura :)
 ---
 
 <div class="home-intro">
