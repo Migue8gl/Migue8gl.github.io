@@ -368,7 +368,7 @@ li {
 }
 
 .table-of-contents::before {
-  content: "Índice";
+  content: "Contenido";
   display: block;
   font-size: 1.7rem;
   color: #e6edf3;
