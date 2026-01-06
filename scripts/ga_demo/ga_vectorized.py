@@ -145,22 +145,27 @@ class GAVectorized:
         self, population: np.ndarray, indices: np.ndarray
     ) -> np.ndarray:
         n_pairs = len(indices) // 2
-        offspring = []
+        parents1 = population[indices[::2]]
+        parents2 = population[indices[1::2]]
 
-        for i in range(n_pairs):
-            i1, i2 = indices[i * 2], indices[i * 2 + 1]
-            p1, p2 = population[i1], population[i2]
+        offspring = np.empty((n_pairs * 2, self.num_genes), dtype=population.dtype)
 
-            if np.random.rand() <= self.crossover_rate:
-                point = np.random.randint(1, p1.size)
-                c1 = np.concatenate([p1[:point], p2[point:]])
-                c2 = np.concatenate([p2[:point], p1[point:]])
-            else:
-                c1, c2 = p1.copy(), p2.copy()
+        crossover_mask = np.random.rand(n_pairs) <= self.crossover_rate
 
-            offspring.extend([c1, c2])
+        crossover_points = np.random.randint(1, self.num_genes, size=n_pairs)
 
-        return np.array(offspring[: self.population_size])
+        gene_indices = np.arange(self.num_genes)
+
+        masks = gene_indices[None, :] < crossover_points[:, None]
+
+        offspring[::2] = np.where(masks, parents1, parents2)
+        offspring[1::2] = np.where(masks, parents2, parents1)
+
+        no_crossover_mask = ~crossover_mask
+        offspring[::2][no_crossover_mask] = parents1[no_crossover_mask]
+        offspring[1::2][no_crossover_mask] = parents2[no_crossover_mask]
+
+        return offspring[: self.population_size]
 
     def mutate_vectorized(self, population: np.ndarray) -> np.ndarray:
         mask = (
@@ -239,14 +244,14 @@ def run_experiment(problem_size: int, algorithm: str, seed: int) -> dict:
 
     weights = np.random.rand(problem_size)
     values = np.random.rand(problem_size)
-    max_capacity = int(0.1 * problem_size)
+    max_capacity = int(0.4 * problem_size)
 
     fitness_soft = partial(
         fitness_knapsack_soft, weights=weights, values=values, max_capacity=max_capacity
     )
 
     configs = {
-        "population_size": 50,
+        "population_size": 30,
         "num_genes": problem_size,
         "mutation_rate": 0.02,
         "max_iter": 1000,
@@ -330,7 +335,7 @@ def main():
     print(speedup_summary)
 
     sns.set_style("whitegrid")
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    _, axes = plt.subplots(2, 2, figsize=(14, 10))
 
     sns.barplot(
         data=df,
@@ -381,6 +386,7 @@ def main():
         "Time Scaling with Problem Size", fontsize=14, fontweight="bold"
     )
     axes[1, 1].set_xlabel("Problem Size (number of items)")
+    axes[1, 1].set_xscale("log")
     axes[1, 1].set_ylabel("Time (seconds)")
     axes[1, 1].set_yscale("log")
 
