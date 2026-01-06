@@ -16,7 +16,7 @@ tags:
 
 ## ¿Qué es la vectorización?
 
-Como programador siempre he tenido en cuenta la eficiencia a la hora de crear sistemas. Los numeritos indicando poco tiempo de ejecución nos producen cosquillas en el cerebro. Una forma de conseguir código más veloz es mediante la técnica de vectorización.
+Como programador siempre he tenido en cuenta la eficiencia a la hora de crear sistemas. Los numeritos bajando, indicando poco tiempo de ejecución, nos producen cosquillas en el cerebro. Una forma de conseguir código más veloz es mediante la técnica de vectorización.
 
 ¿Qué es la vectorización entonces? Es un método por el cual aplicamos operaciones sobre un conjunto de elementos de forma simultánea, en vez de aplicarlas de una en una. Sencillo de entender y muy fácil de aplicar en *Python* con la librería de cálculo numérico *NumPy*.
 
@@ -26,13 +26,13 @@ Como programador siempre he tenido en cuenta la eficiencia a la hora de crear si
    width="500"
 %}
 
-Sin embargo, no todos los problemas son vectorizables. Para que una operación pueda vectorizarse, los cálculos sobre cada elemento deben ser independientes entre sí, es decir, el resultado de un elemento no puede depender del resultado de otro. Esto es así porque las operaciones se ejecutan en paralelo. Si existiera dependencia entre los resultados, sería necesario coordinar la ejecución, introduciendo un overhead que reduciría, o incluso anularía, las ventajas en rendimiento.
+Sin embargo, no todos los problemas son vectorizables. Para que una operación pueda vectorizarse, los cálculos sobre cada elemento deben ser independientes entre sí, es decir, el resultado de un elemento no puede depender del resultado de otro. Esto es así porque las operaciones se ejecutan en paralelo. Si existiera dependencia entre los resultados, sería necesario coordinar la ejecución, introduciendo un *overhead* que reduciría, o incluso anularía, las ventajas en rendimiento.
 
 También es necesario estructurar los datos en *arrays* o matrices, es decir, estructuras homogéneas. Las *GPUs* y *CPUs* están optimizadas para operar bajo estas estructuras. *NumPy* está programado para aprovechar estas optimizaciones.
 
 ## Vectorización de un GA
 
-Como ya vimos en mi anterior *post* cómo funcionan los [algoritmos genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga), podemos aprovechar el código secuencial en *Python* puro para introducir unas cuantas mejoras. Todos los operadores de ese código son perfectamente vectorizables. Al realizar el cambio, veremos una mejora muy sustancial, no solo por el uso de esta técnica, sino porque los bucles en *Python* son inherentemente lentos. 
+Como ya vimos en mi anterior *post* cómo funcionan los [algoritmos genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga), podemos aprovechar el código secuencial en *Python* puro para introducir unas cuantas mejoras. Todos los operadores de ese código son perfectamente vectorizables. Al realizar el cambio, veremos una mejora muy sustancial, ya que los bucles en *Python* son inherentemente lentos. 
 
 Empecemos por el operador de mutación:
 
@@ -54,7 +54,7 @@ def mutate_vectorized(self, population: np.ndarray) -> np.ndarray:
         return population
 ```
 
-En el primer código usé un `for-loop` en *Python* (extremadamente lento si el conjunto a iterar crece mucho) para ir mutando cada gen uno a uno. Además se realiza la operación de generación de un número aleatorio individualmente.
+En el primer código usé un `for-loop` en *Python* (extremadamente lento si el conjunto a iterar crece mucho) para ir mutando cada gen uno a uno. Además, se realiza la operación de generación de un número aleatorio individualmente.
 
 En el segundo código creamos una máscara del tamaño de la población total. Véase que aquí operamos no sobre un individuo $x\in X$, sino sobre toda la población $X$. Si el número generado es menor a la probabilidad de mutación, entonces se aplica mutación. Después se aplica, de forma simultánea, la máscara sobre la operación para hacer el cambio de *bit*.
 
@@ -160,7 +160,7 @@ def optimize(self) -> np.ndarray:
  
 Ahora, ya tendríamos un *GA* mucho más optimizado. Los operadores principales se han reescrito de forma que aprovechen las ventajas de la vectorización. Ahora son capaces de aplicar operaciones masivas sobre toda la población, en vez de utilizar bucles de *Python*, los cuales son extremadamente lentos.
 
-Para probar la eficacia de la vectorización, he programado un ejemplo en el que se lanzarán $5$ experimentos. Cada experimento tiene un tamaño de problema mayor que el anterior, en este caso el problema de la mochila, el cual ya expliqué en el post sobre [genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga). En cada experimento se hacen $5$ *runs* para minimizar el efecto de la aleatoriedad. Las mejoras realizadas a los operadores, proveen de mayor *speed-up* a las variaciones de población que a las variaciones de tamaño de problema. O dicho de otra forma, se rasca más eficiencia y el algoritmo brilla más en situaciones de mayor número de cromosomas que cuando hay mayor número de genes. De todas formas, se beneficia mucho en ambas situaciones. Para este ejemplo funciona perfectamente aumentar el número de genes.
+Para probar la eficacia de la vectorización, he programado un ejemplo en el que se lanzarán $5$ experimentos. Cada experimento tiene un tamaño de problema mayor que el anterior, en este caso el problema de la mochila, el cual ya expliqué en el post sobre [genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga). En cada experimento se hacen $5$ *runs* para minimizar el efecto de la aleatoriedad.
 
 Antes de todo, definamos el *speed-up*:
 
@@ -178,7 +178,7 @@ En el gráfico se muestra el tiempo de ejecución en términos absolutos, siendo
 
 Ambas versiones muestran una tendencia de crecimiento similar en escala logarítmica, lo que indica que comparten el mismo orden de complejidad. Sin embargo, el algoritmo vectorizado presenta una constante multiplicativa mucho menor, lo que se traduce en una mejora sustancial del tiempo de ejecución para cualquier tamaño de problema.
 
-¿El resumen de todo esto? El *speed-up* probablemente tope con un límite según crece el problema, pero aún así será unas $\approx 20\times$ veces mejor que el secuencial. Si en aumentásemos el tamaño del problema más veces, veríamos como la tendencia alcista de la eficiencia se suaviza.
+¿El resumen de todo esto? El *speed-up* probablemente tope con un límite según crece el problema, pero aún así será unas $\approx 20\times$ veces mejor que el secuencial. Si aumentásemos el tamaño del problema más veces, veríamos como la tendencia alcista de la eficiencia se suaviza.
 
 ## El cambio de mentalidad
 La moraleja es sencilla: la vectorización es una herramienta sencilla de aplicar y muy beneficiosa.
