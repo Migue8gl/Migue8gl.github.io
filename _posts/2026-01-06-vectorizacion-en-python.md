@@ -32,7 +32,7 @@ También es necesario estructurar los datos en *arrays* o matrices, es decir, es
 
 ## Vectorización de un GA
 
-Como ya vimos en mi anterior *post* cómo funcionan los [algoritmos genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga), podemos aprovechar el código secuencial en *Python* puro para introducir unas cuantas mejoras. Todos los operadores de ese código son perfectamente vectorizables. Al realizar el cambio, veremos una mejora muy sustancial, ya que los bucles en *Python* son inherentemente lentos. 
+Como ya vimos en mi anterior *post* cómo funcionan los [algoritmos genéticos](/2025/12/30/algoritmos-geneticos), podemos aprovechar el código secuencial en *Python* puro para introducir unas cuantas mejoras. Todos los operadores de ese código son perfectamente vectorizables. Al realizar el cambio, veremos una mejora muy sustancial, ya que los bucles en *Python* son inherentemente lentos. 
 
 Empecemos por el operador de mutación:
 
@@ -160,7 +160,7 @@ def optimize(self) -> np.ndarray:
  
 Ahora, ya tendríamos un *GA* mucho más optimizado. Los operadores principales se han reescrito de forma que aprovechen las ventajas de la vectorización. Ahora son capaces de aplicar operaciones masivas sobre toda la población, en vez de utilizar bucles de *Python*, los cuales son extremadamente lentos.
 
-Para probar la eficacia de la vectorización, he programado un ejemplo en el que se lanzarán $5$ experimentos. Cada experimento tiene un tamaño de problema mayor que el anterior, en este caso el problema de la mochila, el cual ya expliqué en el post sobre [genéticos](/2025/12/30/algoritmos-geneticos/#vectorizacion-de-un-ga). En cada experimento se hacen $5$ *runs* para minimizar el efecto de la aleatoriedad.
+Para probar la eficacia de la vectorización, he programado un ejemplo en el que se lanzarán $5$ experimentos. Cada experimento tiene un tamaño de problema mayor que el anterior, en este caso el problema de la mochila, el cual ya expliqué en el post sobre [genéticos](/2025/12/30/algoritmos-geneticos). En cada experimento se hacen $5$ *runs* para minimizar el efecto de la aleatoriedad.
 
 Antes de todo, definamos el *speed-up*:
 
