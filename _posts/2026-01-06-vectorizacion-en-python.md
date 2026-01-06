@@ -166,7 +166,7 @@ Antes de todo, definamos el *speed-up*:
 
 $$speed\_up=\frac{T_{secuencial}}{T_{vectorizado}}$$
 
-Es decir, es una métrica que mide cuántas veces es una versión más rápida que la otra. Un *speed-up* de $2x$ significa que la versión vectorizada tarda la mitad de tiempo.
+Es decir, es una métrica que mide cuántas veces es una versión más rápida que la otra. Un *speed-up* de $\times 2$ significa que la versión vectorizada tarda la mitad de tiempo.
 
 {% include image.html
    path="/assets/images/vectorizacion-en-python/ga_comparison.png"
@@ -178,7 +178,7 @@ En el gráfico se muestra el tiempo de ejecución en términos absolutos, siendo
 
 Ambas versiones muestran una tendencia de crecimiento similar en escala logarítmica, lo que indica que comparten el mismo orden de complejidad. Sin embargo, el algoritmo vectorizado presenta una constante multiplicativa mucho menor, lo que se traduce en una mejora sustancial del tiempo de ejecución para cualquier tamaño de problema.
 
-¿El resumen de todo esto? El *speed-up* probablemente tope con un límite según crece el problema, pero aún así será unas $\approx 20\times$ veces mejor que el secuencial. Si aumentásemos el tamaño del problema más veces, veríamos como la tendencia alcista de la eficiencia se suaviza.
+¿El resumen de todo esto? El *speed-up* probablemente tope con un límite según crece el problema, pero aún así será unas $\approx\times 2$veces mejor que el secuencial. Si aumentásemos el tamaño del problema más veces, veríamos como la tendencia alcista de la eficiencia se suaviza.
 
 ## El cambio de mentalidad
 La moraleja es sencilla: la vectorización es una herramienta sencilla de aplicar y muy beneficiosa.
