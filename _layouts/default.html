@@ -185,12 +185,12 @@ layout: none
 
       toc.appendChild(rootList);
       
-      // Insertar después del primer h1 (título del post)
-      const firstH1 = content.querySelector('h1');
-      if (firstH1 && firstH1.nextSibling) {
-        firstH1.parentNode.insertBefore(toc, firstH1.nextSibling);
-      } else if (firstH1) {
-        firstH1.parentNode.appendChild(toc);
+      // Insertar después del .post-meta
+      const postMeta = content.querySelector('.post-meta');
+      if (postMeta && postMeta.nextSibling) {
+        postMeta.parentNode.insertBefore(toc, postMeta.nextSibling);
+      } else if (postMeta) {
+        postMeta.parentNode.appendChild(toc);
       } else {
         content.insertBefore(toc, content.firstChild);
       }
