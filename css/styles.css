@@ -83,11 +83,10 @@ blockquote {
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
-  margin-bottom: 0; /* Cambiar de 2rem a 0 */
+  margin-bottom: 2rem;
   padding-bottom: 1rem;
-  border-bottom: none; /* Eliminar la línea aquí */
+  border-bottom: 1px solid #373737;
 }
-
 
 /* Blog links */
 .blog-links {
@@ -363,7 +362,7 @@ li {
 .table-of-contents {
   background: transparent;
   padding: 1.5rem 0 2rem 0;
-  margin: 0 0 2.5rem 0;
+  margin: 2.5rem 0;
   border-top: 1px solid #373737;
   border-bottom: 1px solid #373737;
 }
