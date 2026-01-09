@@ -184,10 +184,18 @@ layout: none
       });
 
       toc.appendChild(rootList);
-      content.insertBefore(toc, content.firstChild);
+      
+      // Insertar después del primer h1 (título del post)
+      const firstH1 = content.querySelector('h1');
+      if (firstH1 && firstH1.nextSibling) {
+        firstH1.parentNode.insertBefore(toc, firstH1.nextSibling);
+      } else if (firstH1) {
+        firstH1.parentNode.appendChild(toc);
+      } else {
+        content.insertBefore(toc, content.firstChild);
+      }
     });
   </script>
 
 </body>
 </html>
-
