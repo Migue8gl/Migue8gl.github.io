@@ -359,6 +359,7 @@ li {
   opacity: 0.8;
 }
 
+/* Table of contents */
 .table-of-contents {
   background: transparent;
   padding: 1.5rem 0 2rem 0;
@@ -440,6 +441,7 @@ li {
   color: #6e7681;
 }
 
+/* Image grid */
 .image-grid {
   margin: 2rem auto;
   max-width: 100%;
@@ -482,7 +484,7 @@ mjx-container[display="true"] {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Evita que el contenido “rompa” el layout al medir */
+/* Evita que el contenido "rompa" el layout al medir */
 mjx-container[display="true"] mjx-math {
   white-space: nowrap;
 }
