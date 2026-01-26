@@ -1,0 +1,141 @@
+<!-- Modal de Suscripción - _includes/subscribe-modal.html -->
+<div id="subscribe-modal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2>📬 Suscríbete</h2>
+    <p>Recibe los nuevos posts en tu correo</p>
+    
+    <div id="form-container">
+      <input type="email" id="email-input" placeholder="tu@email.com">
+      <button id="submit-btn" onclick="submitEmail()">Suscribirme</button>
+    </div>
+    
+    <p id="form-message"></p>
+  </div>
+</div>
+
+<style>
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#email-input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+#email-input:focus { outline: none; border-color: #2563eb; }
+#submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+#submit-btn:hover { background: #1d4ed8; }
+#submit-btn:disabled { background: #93c5fd; }
+#form-message { margin-top: 15px; font-size: 0.9rem; }
+</style>
+
+<script>
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSclntEj50Y3KW7bHI5w3-p1b5kaXsZbs4gD15NIMj4ioXxXKw/formResponse';
+const EMAIL_FIELD = 'entry.259361416';
+
+function openModal() {
+  document.getElementById('subscribe-modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('subscribe-modal').classList.remove('active');
+  document.getElementById('form-message').textContent = '';
+}
+
+function submitEmail() {
+  const email = document.getElementById('email-input').value;
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-message');
+  
+  if (!email || !email.includes('@')) {
+    msg.textContent = '❌ Ingresa un email válido';
+    msg.style.color = '#dc2626';
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  
+  // Crear iframe oculto
+  const iframe = document.createElement('iframe');
+  iframe.name = 'hidden-iframe';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  
+  // Crear form temporal
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = FORM_URL;
+  form.target = 'hidden-iframe';
+  
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = EMAIL_FIELD;
+  input.value = email;
+  form.appendChild(input);
+  
+  document.body.appendChild(form);
+  form.submit();
+  
+  // Mostrar éxito
+  setTimeout(() => {
+    document.body.removeChild(form);
+    document.body.removeChild(iframe);
+    
+    msg.textContent = '✅ ¡Gracias por suscribirte!';
+    msg.style.color = '#16a34a';
+    document.getElementById('email-input').value = '';
+    btn.disabled = false;
+    btn.textContent = 'Suscribirme';
+    
+    localStorage.setItem('subscribed', 'true');
+    setTimeout(closeModal, 2000);
+  }, 1500);
+}
+
+// Cerrar con ESC
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Enter para enviar
+document.getElementById('email-input')?.addEventListener('keypress', e => {
+  if (e.key === 'Enter') submitEmail();
+});
+</script>

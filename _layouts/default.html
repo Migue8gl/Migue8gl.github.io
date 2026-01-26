@@ -110,6 +110,7 @@ layout: none
 </head>
 
 {% include analytics.html %}
+{% include subscribe-modal.html %}
 
 <body{% if page.layout == 'post' %} class="post-page"{% endif %}>
 
@@ -119,7 +120,8 @@ layout: none
       <center>
         <a href="/">Home</a> ·
         <a href="/blog.html">Blog</a> ·
-        <a href="/about.html">About</a>
+        <a href="/about.html">About</a> ·
+        <a href="#" onclick="openModal(); return false;">📬 Suscríbete</a>
       </center>
     </nav>
   </header>
