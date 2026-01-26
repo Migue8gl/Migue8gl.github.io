@@ -1,8 +1,8 @@
 <!-- Modal de Suscripción - _includes/subscribe-modal.html -->
 <div id="subscribe-modal" class="modal-overlay">
-  <div class="modal-content">
+  <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">&times;</button>
-    <h2>📬 Suscríbete</h2>
+    <h2>Suscribete</h2>
     <p>Recibe los nuevos posts en tu correo</p>
     
     <div id="form-container">
@@ -18,53 +18,97 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.85);
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 1000;
 }
 .modal-overlay.active { display: flex; }
-.modal-content {
-  background: #fff;
+
+.modal-box {
+  background-color: #262626;
+  border: 1px solid #373737;
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 4px;
   max-width: 380px;
   width: 90%;
   text-align: center;
   position: relative;
 }
+
+.modal-box h2 {
+  color: #e6edf3;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.modal-box p {
+  color: #8b949e;
+  margin-bottom: 1.5rem;
+}
+
 .modal-close {
   position: absolute;
-  top: 8px; right: 12px;
+  top: 12px;
+  right: 16px;
   font-size: 1.5rem;
   background: none;
   border: none;
   cursor: pointer;
+  color: #8b949e;
+  transition: color 0.15s ease;
 }
+.modal-close:hover { color: #e6edf3; }
+
 #email-input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 2px solid #e5e7eb;
-  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #373737;
+  border-radius: 4px;
   font-size: 1rem;
+  font-family: inherit;
   box-sizing: border-box;
+  background-color: #1c1c1e;
+  color: #c9d1d9;
 }
-#email-input:focus { outline: none; border-color: #2563eb; }
+#email-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+#email-input::placeholder {
+  color: #6e7681;
+}
+
 #submit-btn {
   width: 100%;
-  padding: 12px;
-  background: #2563eb;
-  color: white;
+  padding: 0.75rem 1rem;
+  background-color: #3b82f6;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
-#submit-btn:hover { background: #1d4ed8; }
-#submit-btn:disabled { background: #93c5fd; }
-#form-message { margin-top: 15px; font-size: 0.9rem; }
+#submit-btn:hover {
+  background-color: #60a5fa;
+}
+#submit-btn:disabled {
+  background-color: #484f58;
+  cursor: not-allowed;
+}
+
+#form-message {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+#form-message.success { color: #3fb950; }
+#form-message.error { color: #f85149; }
 </style>
 
 <script>
@@ -78,6 +122,7 @@ function openModal() {
 function closeModal() {
   document.getElementById('subscribe-modal').classList.remove('active');
   document.getElementById('form-message').textContent = '';
+  document.getElementById('form-message').className = '';
 }
 
 function submitEmail() {
@@ -86,21 +131,19 @@ function submitEmail() {
   const msg = document.getElementById('form-message');
   
   if (!email || !email.includes('@')) {
-    msg.textContent = '❌ Ingresa un email válido';
-    msg.style.color = '#dc2626';
+    msg.textContent = 'Ingresa un email valido';
+    msg.className = 'error';
     return;
   }
   
   btn.disabled = true;
   btn.textContent = 'Enviando...';
   
-  // Crear iframe oculto
   const iframe = document.createElement('iframe');
   iframe.name = 'hidden-iframe';
   iframe.style.display = 'none';
   document.body.appendChild(iframe);
   
-  // Crear form temporal
   const form = document.createElement('form');
   form.method = 'POST';
   form.action = FORM_URL;
@@ -115,13 +158,12 @@ function submitEmail() {
   document.body.appendChild(form);
   form.submit();
   
-  // Mostrar éxito
   setTimeout(() => {
     document.body.removeChild(form);
     document.body.removeChild(iframe);
     
-    msg.textContent = '✅ ¡Gracias por suscribirte!';
-    msg.style.color = '#16a34a';
+    msg.textContent = 'Gracias por suscribirte';
+    msg.className = 'success';
     document.getElementById('email-input').value = '';
     btn.disabled = false;
     btn.textContent = 'Suscribirme';
@@ -131,11 +173,11 @@ function submitEmail() {
   }, 1500);
 }
 
-// Cerrar con ESC
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Enter para enviar
-document.getElementById('email-input')?.addEventListener('keypress', e => {
-  if (e.key === 'Enter') submitEmail();
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('email-input').addEventListener('keypress', e => {
+    if (e.key === 'Enter') submitEmail();
+  });
 });
 </script>
