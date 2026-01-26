@@ -8,3 +8,4 @@ vendor
 venv
 .env
 env
+priv_scripts
