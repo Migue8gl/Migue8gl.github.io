@@ -34,7 +34,7 @@ def visualize_data(
 
 
 def perceptron(X: np.ndarray, y: np.ndarray):
-    W_bias = np.random.rand(X.shape[1] + 1)
+    W_bias = np.random.random(X.shape[1] + 1)
     X_bias = np.hstack([np.ones((X.shape[0], 1)), X])
 
     W_new = W_bias.copy()
@@ -59,8 +59,8 @@ def perceptron(X: np.ndarray, y: np.ndarray):
 def main():
     n_samples = 30
     n_features = 2
-    W_true = np.random.rand(2)
-    b_true = np.random.rand()
+    W_true = np.random.random(2)
+    b_true = np.random.random()
 
     X, y = create_data(n_samples, n_features, W_true, b_true)
     visualize_data(X, y, title="./scripts/perceptron/linear_dataset.png")
