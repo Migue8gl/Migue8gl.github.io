@@ -14,7 +14,7 @@ def create_data(n_samples: int, n_features: int, W_true: np.ndarray, b_true: flo
 
 
 def visualize_data(
-    X: np.ndarray, y: np.ndarray, title: str, W: np.ndarray = None
+    X: np.ndarray, y: np.ndarray, title: str, W: np.ndarray = None, show_weights_vector: bool = False
 ) -> None:
     plt.figure()
     sns.scatterplot(
@@ -26,10 +26,22 @@ def visualize_data(
 
     if W is not None:
         b, w1, w2 = W
+
         x_vals = np.array([X[:, 0].min(), X[:, 0].max()])
         y_vals = -(w1 * x_vals + b) / w2
         plt.plot(x_vals, y_vals, color="green")
 
+        if show_weights_vector:
+            x0 = np.mean(x_vals)
+            y0 = -(w1 * x0 + b) / w2
+
+            k = 1
+            x1 = x0 + k*w1
+            y1 = y0 + k*w2
+
+            plt.plot([x0, x1], [y0, y1], color="purple", linestyle="--", linewidth=2)
+
+    plt.gca().set_aspect("equal", adjustable="box")
     plt.savefig(title)
 
 
@@ -66,7 +78,7 @@ def main():
     visualize_data(X, y, title="./scripts/perceptron/linear_dataset.png")
 
     W = perceptron(X, y)
-    visualize_data(X, y, W=W, title="./scripts/perceptron/linear_dataset_solved.png")
+    visualize_data(X, y, W=W, title="./scripts/perceptron/linear_dataset_solved.png", show_weights_vector=True)
 
 
 if __name__ == "__main__":

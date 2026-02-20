@@ -1,0 +1,362 @@
+---
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Perceptron</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #c9d1d9;
+            background-color: #1c1c1e;
+            padding: 10px 10px 6px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #373737;
+            background: #262626;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            color: #8b949e;
+        }
+
+        .mode-btn:hover { border-color: #484f58; color: #c9d1d9; }
+        .mode-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+
+        canvas {
+            display: block;
+            width: 100%;
+            border: 1px solid #373737;
+            border-radius: 4px;
+            touch-action: none;
+            background: #1c1c1e;
+            cursor: crosshair;
+            margin-bottom: 8px;
+        }
+
+        .equation {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            background: #262626;
+            padding: 7px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 12px;
+            color: #e6edf3;
+            border: 1px solid #373737;
+            margin-bottom: 8px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 6px;
+        }
+
+        button {
+            padding: 5px 8px;
+            border: 1px solid #373737;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            background: #262626;
+            color: #c9d1d9;
+        }
+
+        button:hover { border-color: #484f58; background: #2d2d2d; }
+        button:active { transform: scale(0.97); }
+        .btn-primary { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+        .btn-primary:hover { background: #60a5fa; border-color: #60a5fa; }
+        .btn-step { background: transparent; border-color: #3b82f6; color: #3b82f6; }
+        .btn-step:hover { background: rgba(59, 130, 246, 0.1); }
+
+        .speed-control {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+
+        .speed-btn { padding: 4px; font-size: 10px; color: #8b949e; }
+        .speed-btn.active { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 11px;
+            color: #8b949e;
+        }
+
+        .stat-value {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #e6edf3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="setMode('positive')">Positive (+1)</button>
+            <button class="mode-btn" onclick="setMode('negative')">Negative (−1)</button>
+        </div>
+
+        <canvas id="canvas" width="480" height="380"></canvas>
+
+        <div class="equation" id="equation">1.0x₁ − 1.0x₂ + 0.0 = 0</div>
+
+        <div class="controls">
+            <button class="btn-step" onclick="trainStep()">Step</button>
+            <button class="btn-primary" onclick="toggleAutoTrain()" id="autoBtn">Auto</button>
+            <button onclick="reset()">Reset</button>
+            <button onclick="clearPoints()">Clear</button>
+        </div>
+
+        <div class="speed-control">
+            <button class="speed-btn" onclick="setSpeed(1000)">Slow</button>
+            <button class="speed-btn active" onclick="setSpeed(500)">Normal</button>
+            <button class="speed-btn" onclick="setSpeed(150)">Fast</button>
+            <button class="speed-btn" onclick="setSpeed(30)">Turbo</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-value" id="errors">0</span>
+                <span>errors</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" id="iterations">0</span>
+                <span>iterations</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const maxCoord = 10, scale = 36, originX = 36, originY = 365;
+
+        let w1 = 1, w2 = -1, b = 0;
+        let points = [];
+        let currentMode = 'positive';
+        let iterations = 0, trainingIndex = 0;
+        let autoTraining = false, trainingSpeed = 500, trainingInterval = null;
+
+        function initializePoints() {
+            points = [
+                { x1: 2, x2: 3, label: 1 },
+                { x1: 4, x2: 3, label: 1 },
+                { x1: 3, x2: 1, label: 1 },
+                { x1: 4, x2: 5, label: -1 },
+                { x1: 5, x2: 3, label: -1 }
+            ];
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function setSpeed(speed) {
+            trainingSpeed = speed;
+            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            if (autoTraining) { stopAutoTraining(); setTimeout(startAutoTraining, 100); }
+        }
+
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const sx = canvas.width / rect.width, sy = canvas.height / rect.height;
+            let cx, cy;
+            if (e.touches && e.touches.length > 0) { cx = e.touches[0].clientX; cy = e.touches[0].clientY; }
+            else { cx = e.clientX; cy = e.clientY; }
+            return { x: (cx - rect.left) * sx, y: (cy - rect.top) * sy };
+        }
+
+        function addPointFromEvent(e) {
+            e.preventDefault();
+            const c = getCanvasCoordinates(e);
+            const x1 = Math.round((c.x - originX) / scale);
+            const x2 = Math.round((originY - c.y) / scale);
+            if (x1 >= 1 && x1 <= maxCoord && x2 >= 1 && x2 <= maxCoord) {
+                points.push({ x1, x2, label: currentMode === 'positive' ? 1 : -1 });
+                draw();
+            }
+        }
+
+        canvas.addEventListener('click', addPointFromEvent);
+        canvas.addEventListener('touchstart', addPointFromEvent);
+
+        function classify(p) { return (w1 * p.x1 + w2 * p.x2 + b) >= 0 ? 1 : -1; }
+
+        function trainStep() {
+            if (points.length === 0) return false;
+            let found = false;
+            const start = trainingIndex;
+            do {
+                const p = points[trainingIndex];
+                if (classify(p) !== p.label) {
+                    w1 += p.label * p.x1;
+                    w2 += p.label * p.x2;
+                    b += p.label;
+                    iterations++;
+                    found = true;
+                    trainingIndex = (trainingIndex + 1) % points.length;
+                    break;
+                }
+                trainingIndex = (trainingIndex + 1) % points.length;
+            } while (trainingIndex !== start);
+            updateDisplay(); draw();
+            return found;
+        }
+
+        function startAutoTraining() {
+            autoTraining = true;
+            document.getElementById('autoBtn').textContent = 'Stop';
+            trainingInterval = setInterval(() => { if (!trainStep()) stopAutoTraining(); }, trainingSpeed);
+        }
+
+        function stopAutoTraining() {
+            autoTraining = false;
+            document.getElementById('autoBtn').textContent = 'Auto';
+            if (trainingInterval) { clearInterval(trainingInterval); trainingInterval = null; }
+        }
+
+        function toggleAutoTrain() { autoTraining ? stopAutoTraining() : startAutoTraining(); }
+        function countErrors() { return points.filter(p => classify(p) !== p.label).length; }
+        function fmt(n) { return n.toFixed(1); }
+
+        function updateDisplay() {
+            const w1s = fmt(w1);
+            const w2s = w2 >= 0 ? `+ ${fmt(w2)}` : `− ${fmt(Math.abs(w2))}`;
+            const bs = b >= 0 ? `+ ${fmt(b)}` : `− ${fmt(Math.abs(b))}`;
+            document.getElementById('equation').textContent = `${w1s}x₁ ${w2s}x₂ ${bs} = 0`;
+            document.getElementById('errors').textContent = countErrors();
+            document.getElementById('iterations').textContent = iterations;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#1c1c1e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = '#262626';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= maxCoord; i++) {
+                ctx.beginPath(); ctx.moveTo(originX + i * scale, originY); ctx.lineTo(originX + i * scale, originY - maxCoord * scale); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(originX, originY - i * scale); ctx.lineTo(originX + maxCoord * scale, originY - i * scale); ctx.stroke();
+            }
+
+            ctx.strokeStyle = '#484f58';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(originX, originY); ctx.lineTo(originX + maxCoord * scale + 12, originY); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(originX, originY); ctx.lineTo(originX, originY - maxCoord * scale - 12); ctx.stroke();
+
+            ctx.fillStyle = '#8b949e';
+            ctx.font = '10px -apple-system, system-ui, sans-serif';
+            ctx.fillText('x₁', originX + maxCoord * scale + 4, originY + 11);
+            ctx.fillText('x₂', originX - 18, originY - maxCoord * scale - 4);
+
+            ctx.font = '9px "SF Mono", Monaco, Inconsolata, monospace';
+            ctx.fillStyle = '#6e7681';
+            for (let i = 2; i <= maxCoord; i += 2) {
+                ctx.fillText(i, originX + i * scale - 3, originY + 13);
+                ctx.fillText(i, originX - 15, originY - i * scale + 3);
+            }
+
+            if (w2 !== 0) {
+                ctx.strokeStyle = '#3b82f6';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([5, 3]);
+                const x1S = -1, x1E = maxCoord + 1;
+                const x2S = -(w1 * x1S + b) / w2, x2E = -(w1 * x1E + b) / w2;
+                ctx.beginPath();
+                ctx.moveTo(originX + x1S * scale, originY - x2S * scale);
+                ctx.lineTo(originX + x1E * scale, originY - x2E * scale);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            points.forEach(p => {
+                const x = originX + p.x1 * scale, y = originY - p.x2 * scale;
+                const ok = classify(p) === p.label;
+                if (p.label === 1) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                    ctx.strokeStyle = ok ? '#3b82f6' : '#ef4444';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                } else {
+                    ctx.strokeStyle = ok ? '#ef4444' : '#3b82f6';
+                    ctx.lineWidth = 2;
+                    const s = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(x - s, y - s); ctx.lineTo(x + s, y + s);
+                    ctx.moveTo(x + s, y - s); ctx.lineTo(x - s, y + s);
+                    ctx.stroke();
+                }
+            });
+        }
+
+        function reset() {
+            stopAutoTraining();
+            w1 = 1; w2 = -1; b = 0;
+            iterations = 0; trainingIndex = 0;
+            initializePoints(); updateDisplay(); draw();
+        }
+
+        function clearPoints() {
+            stopAutoTraining();
+            points = []; trainingIndex = 0;
+            updateDisplay(); draw();
+        }
+
+        initializePoints(); updateDisplay(); draw();
+    </script>
+</body>
+</html>
