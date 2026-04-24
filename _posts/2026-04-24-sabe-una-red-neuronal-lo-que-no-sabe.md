@@ -126,7 +126,7 @@ def compute_msp(model, loader, device):
 
 El modelo, lo que devuelve, en su capa final son los conocidos *logits* (hay métodos que trabajan directamente en este punto). Ahora lo que hay que hacer es pasarlo por la función *softmax*.
 
-Ahora vamos a cargar los ejemplos fuera de distribución y los ejemplos dentro de distribución (ojo, son ejemplos que nunca ha visto, son los de test). Si el detector funciona bien, debería asignar *scores* mucho más altos a los datos *ID*.
+Ahora vamos a cargar los ejemplos fuera de distribución y los ejemplos dentro de distribución (ojo, son ejemplos que nunca ha visto, pero sí están dentro de lo que debería conocer la red). Si el detector funciona bien, debería asignar *scores* mucho más altos a los datos *ID*.
 
 ```python
 id_test = datasets.FashionMNIST(
