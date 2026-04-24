@@ -49,7 +49,7 @@ Este método se basa en la prueba empírica de que las redes neuronales tienden 
 
 $$MSP(x)=max_{k}P(y=k|x)$$
 
-Es un método simple. Por supuesto hay mucho más y más complejos, pero para ilustrar el problema de detección de *OOD* creo que es el mejor.
+Es un método simple. Por supuesto hay mucho más, y más complejos, pero para ilustrar el problema de detección de *OOD* creo que es el mejor.
 
 ## Ejemplo con código
 Para ilustrar mejor el problema voy a escribir unas pocas líneas en *Python*, empezando por una red convolucional simple.
@@ -124,7 +124,7 @@ def compute_msp(model, loader, device):
     return torch.cat(all_msp)
 ```
 
-El modelo lo que devuelve en su capa final son los conocidos *logits* (hay métodos que trabajan directamente en este punto). Ahora lo que hay que hacer es pasarlo por la función *softmax*.
+El modelo, lo que devuelve, en su capa final son los conocidos *logits* (hay métodos que trabajan directamente en este punto). Ahora lo que hay que hacer es pasarlo por la función *softmax*.
 
 Ahora vamos a cargar los ejemplos fuera de distribución y los ejemplos dentro de distribución (ojo, son ejemplos que nunca ha visto, son los de test). Si el detector funciona bien, debería asignar *scores* mucho más altos a los datos *ID*.
 
