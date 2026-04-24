@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Miguel García López CV
-description: Data Scientist & AI Engineer especializado en Machine Learning, Deep Learning y NLP
+description: Data Scientist especializado en Machine Learning, NLP y sistemas de búsqueda semántica
 ---
 
 # Miguel García López
@@ -17,84 +17,71 @@ description: Data Scientist & AI Engineer especializado en Machine Learning, Dee
 
 ## Perfil
 
-Científico de Datos y Desarrollador de IA con experiencia en aprendizaje automático, análisis de datos y algoritmos de optimización.
-
-Especializado en el diseño y desarrollo de modelos predictivos, ingeniería de características y evaluación rigurosa del rendimiento de modelos.
-
-Experiencia práctica en Deep Learning y Procesamiento del Lenguaje Natural (NLP), con especial énfasis en arquitecturas basadas en transformers y fine-tuning de LLMs.
-
-Sólida competencia en Python, PyTorch y HuggingFace, así como en el despliegue de soluciones de IA en entornos cloud como GCP y Azure.
+Data Scientist con varios años de experiencia construyendo modelos de clasificación en producción (F1 hasta 0.95), pipelines ETL a escala y sistemas de búsqueda semántica sobre +500K documentos. Especializado en NLP (fine-tuning de transformers, RAG) y modelado predictivo con ML clásico (Scikit-Learn, XGBoost), Deep Learning (PyTorch) y análisis de datos con Pandas. Enfoque en análisis exploratorio, feature engineering, validación estadística e impacto de negocio.
 
 ---
 
 ## Experiencia
 
-### **Científico de Datos & Desarrollador de IA**
+### **Data Scientist & AI Engineer**
 *GPU Solutions* · Granada, España  
-*Feb 2025 – present*
+*Feb 2025 – presente*
 
-- Desarrollo de agentes conversacionales basados en grafos utilizando LangGraph, implementando evaluación de rendimiento mediante métricas personalizadas y análisis de flujos de decisión.
-- Fine-tuning de LLMs compactos mediante QLoRA sobre documentos especializados, optimizando el rendimiento en tareas específicas de dominio.
-- Implementación de pipelines de scraping multiproceso para extracción masiva de datos, aplicando técnicas de paralelización para optimizar el tiempo de procesamiento.
-- Despliegue de un clúster SLURM interno para gestión de trabajos de computación de alto rendimiento.
-- Aplicación de técnicas de visión por computadora para la eliminación automática de artefactos en imágenes con OpenCV.
-- Diseño e implementación de sistemas RAG siguiendo buenas prácticas y patrones de diseño escalables.
-- Despliegue de soluciones mediante Docker y Kubernetes, asegurando la escalabilidad y disponibilidad de los servicios.
-- Desarrollo de interfaces interactivas con React en el frontend y FastAPI en el backend.
+- Entrenamiento de un clasificador de prompt injection sobre dataset curado a partir de múltiples fuentes públicas y aumentado con LLM: +90% en accuracy y F1, con +10% de mejora vs. LLM con prompt especializado, inferencia en CPU en milisegundos. Demo comparativa con Streamlit.
+- Fine-tuning de Gemma con QLoRA sobre documentación técnica, evaluando con ROUGE, BLEU y BERTScore. +18% ROUGE-L y +22% BERTScore F1 vs. modelo base, validado con evaluación humana en QA.
+- Sistemas RAG escalables sobre +500K documentos en Qdrant (Azure). Agentes conversacionales con LangGraph evaluados con Phoenix (observabilidad) y LLM-as-judge, con score personalizado basado en flujo de nodos, ejecución de herramientas y calidad de respuestas (85% coherencia).
+- Pipelines de scraping multiproceso para extracción diaria de datos públicos (HTML, PDF): aceleración ~10x vs. enfoque secuencial.
+- Visión por computadora clásica (OpenCV) para eliminación de líneas de recorte en imágenes destinadas a software de visualización 3D.
+- Despliegue con Docker, Kubernetes y SLURM. Interfaces con React (frontend) y FastAPI (backend).
 
-### **Científico de Datos**
+### **Data Scientist**
 *EDUCA EDTECH* · Granada, España  
 *May 2024 – Feb 2025*
 
-- Desarrollo de modelos basados en transformers para clasificación de texto, optimizando la métrica F1 mediante fine-tuning.
-- Construcción de pipelines ETL con Apache Airflow y despliegue de modelos con FastAPI.
-- Creación de bases de datos vectoriales con Pinecone para búsqueda híbrida mediante embeddings y BM25.
-- Análisis de datos y modelado, diseñando esquemas de base de datos normalizados para garantizar integridad y eficiencia.
-- Implementación de validación cruzada estratificada y análisis estadístico (pruebas de hipótesis, intervalos de confianza) para validar el rendimiento de modelos de clasificación dedicados a asistir a profesionales en la evaluación de calidad de procesos de conversión.
+- Clasificación jerárquica de texto (+100 categorías) con DistilBERT: F1 0.95 (nivel alto) / 0.80 (granular). Comparación con FastText: métricas equivalentes con mayor eficiencia en inferencia.
+- Modelo XGBoost de predicción de conversión de cupones, usado por el equipo comercial para optimizar campañas y flujo de conversión de la plataforma.
+- Búsqueda semántica híbrida (embeddings + BM25) en Pinecone sobre +1.000 categorías. Clustering jerárquico por densidad + LLM para consolidación automática de taxonomías.
+- Pipelines ETL con Airflow (varios GB/día), despliegue de modelos con FastAPI. Validación estadística rigurosa: Wilcoxon, intervalos de confianza, validación cruzada estratificada.
+- Diseño de esquemas de base de datos normalizados para integridad y eficiencia en consultas analíticas.
 
 ### **Desarrollador de Software**
 *EDUCA EDTECH* · Granada, España  
 *Feb 2023 – May 2024*
 
-- Desarrollo full-stack con PHP (Symfony), Bootstrap y diseño de APIs RESTful con OpenAPI/Swagger.
-- Gestión ágil de proyectos con Jira y control de versiones con Git en entornos colaborativos.
+- Desarrollo full-stack con PHP (Symfony), Bootstrap y APIs RESTful (OpenAPI/Swagger). Gestión ágil con Jira y Git.
 
 ---
 
 ## Educación
 
 ### **Universidad de Granada**
-*Máster in Ciencia de Datos* · Granada, España  
+*Máster en Ciencia de Datos* · Granada, España  
 *2024 – 2025*
 
 ### **Universidad de Granada**
-*Grado in Ingeniería Informática* · Granada, España  
+*Grado en Ingeniería Informática* · Granada, España  
 *2019 – 2024*
 
 ---
 
 ## Habilidades Técnicas
 
-**Lenguajes:** Python, C++, PHP, SQL, JavaScript
+**Modelado & ML:** Scikit-Learn, XGBoost, PyTorch, HuggingFace Transformers, clasificación, regresión, clustering, feature engineering, validación cruzada, tests estadísticos
 
-**IA / ML:** PyTorch, HuggingFace, LangGraph, Scikit-Learn, Transformers, NLP, Deep Learning, QLoRA, PEFT, Pinecone, Qdrant
+**NLP & LLMs:** Fine-tuning (QLoRA/PEFT), RAG, LangGraph, embeddings, búsqueda semántica, evaluación ROUGE/BLEU/BERTScore
 
-**Ciencia de Datos:** Pandas, Polars, NumPy, Matplotlib, Seaborn, EDA, Statistical Testing, Model Evaluation
+**Datos & Infra:** Pandas, Polars, NumPy, SQL, Matplotlib, Seaborn, Airflow, Docker, Kubernetes, SLURM, GCP, Azure, FastAPI, Pinecone, Qdrant
 
-**Infraestructura / MLOps:** Apache Airflow, Docker, Kubernetes, SLURM, GCP, Azure
-
-**Backend / Frontend:** FastAPI, React, Streamlit
-
-**Herramientas:** Git, CI/CD, Agile/Scrum, Jira, Multiprocessing
+**Lenguajes:** Python, SQL, C++, PHP, JavaScript
 
 ---
 
 ## Proyectos
 
-### **Análisis y estudio de metaheurísticas para Selección de Características**
+### **Metaheurísticas para Selección de Características**
 *Trabajo de Fin de Grado, 2024*
 
-Desarrollo y evaluación de algoritmos metaheurísticos (Algoritmos Genéticos y PSO) para selección de características en conjuntos de datos de alta dimensión, con análisis estadístico comparativo de resultados.
+Comparación de Algoritmos Genéticos, PSO y evolutivos novedosos sobre +10 datasets de alta dimensión. Reducciones del 80% en features con pérdida de accuracy <5%, validado con tests no paramétricos.
 
 ---
 
@@ -102,4 +89,4 @@ Desarrollo y evaluación de algoritmos metaheurísticos (Algoritmos Genéticos y
 
 **Idiomas:** Español (nativo), Inglés (B2 – competencia profesional)
 
-**Certificaciones:** LangGraph, DeepLearning.AI – LLMOps, NVIDIA - CUDA with Python
+**Certificaciones:** LangGraph · DeepLearning.AI — LLMOps · NVIDIA — CUDA with Python
