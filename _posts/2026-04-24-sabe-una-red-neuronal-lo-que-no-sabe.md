@@ -174,7 +174,7 @@ Los resultados obtenidos son los siguientes:
    width="600"
 %}
 
-Como puede observarse, la detección con *MSP* es bastante buena, llegando a un valor de $0.9$. Si quisiéramos, por contexto del negocio, detectar el $90\%$ de los datos *OOD*, sería tan sencillo como mover el umbral de probabilidad a partir del cual se decide. Con ello, al medir *AUROC* para ese punto, veríamos el ratio de falsos positivos ha aumentado. Por ello dependiendo del contexto hay que balancear siempre entre *TPR* y *FPR*.
+Como puede observarse, la detección con *MSP* es bastante buena, llegando a un valor de $0.9$. Si quisiéramos, por contexto del negocio, detectar el $90\%$ de los datos *OOD*, sería tan sencillo como mover el umbral de probabilidad a partir del cual se decide. Con ello, al medir *AUROC* para ese punto, veríamos que el ratio de falsos positivos ha aumentado. Por ello dependiendo del contexto hay que balancear siempre entre *TPR* y *FPR*.
 
 Si visualizamos los *scores* que produce la función para datos *OOD* y para datos *ID* obtenemos lo siguiente:
 
