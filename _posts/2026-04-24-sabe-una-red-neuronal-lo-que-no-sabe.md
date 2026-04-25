@@ -104,7 +104,7 @@ Esta red va a ser entrenada con el conjunto de datos de **FashionMNIST**, donde 
    width="600"
 %}
 
-Ahora entrenamos esta red unas pocas épocas y guardamos el modelo. Ahora, este modelo solo conoce datos de este conjunto y es capaz, según la partición de test, de clasificar con un $90\%$ de precisión cualquier otro tipo de imagen de prenda que le venga.
+Procedemos a entrenar esta red unas pocas épocas y guardamos el modelo. Este modelo solo conoce datos de este conjunto y es capaz, según la partición de *test*, de clasificar con un $90\%$ de precisión cualquier otro tipo de imagen de prenda que le venga.
 
 ### MSP en Python
 El código para calcular los *scores* de *MSP* es el siguiente:
@@ -124,9 +124,9 @@ def compute_msp(model, loader, device):
     return torch.cat(all_msp)
 ```
 
-El modelo, lo que devuelve, en su capa final son los conocidos *logits* (hay métodos que trabajan directamente en este punto). Ahora lo que hay que hacer es pasarlo por la función *softmax*.
+El modelo lo que devuelve en su capa final son los conocidos *logits* (hay métodos que trabajan directamente en este punto). Los *logits*, sin entrar en definiciones matemáticas que se extienden más allá de lo que quiere abarcar este *post*, son valores en bruto que produce la última capa de la red. La función de pérdida espera probabilidades, por ello deben ser transformados. Ahora lo que hay que hacer es pasarlo por la función *softmax*.
 
-Ahora vamos a cargar los ejemplos fuera de distribución y los ejemplos dentro de distribución (ojo, son ejemplos que nunca ha visto, pero sí están dentro de lo que debería conocer la red). Si el detector funciona bien, debería asignar *scores* mucho más altos a los datos *ID*.
+Ahora vamos a cargar los ejemplos fuera de distribución, los *OOD* y los ejemplos dentro de distribución, los *in-distribution* o **ID**,  (ojo, los *ID* son ejemplos que nunca ha visto, pero sí están dentro de lo que debería conocer la red). Si el detector funciona bien, debería asignar *scores* mucho más altos a los datos *ID*.
 
 ```python
 id_test = datasets.FashionMNIST(
