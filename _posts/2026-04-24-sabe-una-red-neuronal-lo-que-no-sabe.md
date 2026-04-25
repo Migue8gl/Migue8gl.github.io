@@ -118,7 +118,7 @@ def compute_msp(model, loader, device):
             X = X.to(device)
             logits = model(X)
             probs = torch.softmax(logits, dim=1)
-            msp = probs.max(dim=1).values
+            msp = probs.max(dim=1).values 
             all_msp.append(msp.cpu())
 
     return torch.cat(all_msp)
