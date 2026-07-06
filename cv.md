@@ -8,7 +8,6 @@ description: Data Scientist especializado en Machine Learning, NLP y sistemas de
 **Data Scientist & AI Engineer**
 
 - Email: [migue8gl@gmail.com](mailto:migue8gl@gmail.com)
-- Phone: 611 47 31 01
 - Location: Granada, España
 - LinkedIn: [miguel-garcía-lópez-b5bb69273](https://linkedin.com/in/miguel-garcía-lópez-b5bb69273)
 - GitHub: [Migue8gl](https://github.com/Migue8gl)
@@ -25,7 +24,7 @@ Data Scientist con varios años de experiencia construyendo modelos de clasifica
 
 ### **Data Scientist & AI Engineer**
 *GPU Solutions* · Granada, España  
-*Feb 2025 – presente*
+*Feb 2025 – May 2026*
 
 - Entrenamiento de un clasificador de prompt injection sobre dataset curado a partir de múltiples fuentes públicas y aumentado con LLM: +90% en accuracy y F1, con +10% de mejora vs. LLM con prompt especializado, inferencia en CPU en milisegundos. Demo comparativa con Streamlit.
 - Fine-tuning de Gemma con QLoRA sobre documentación técnica, evaluando con ROUGE, BLEU y BERTScore. +18% ROUGE-L y +22% BERTScore F1 vs. modelo base, validado con evaluación humana en QA.
