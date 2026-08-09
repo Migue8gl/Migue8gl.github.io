@@ -1,0 +1,4 @@
+,algorithm,n_cities,execution_time_s,tour_cost
+0,Brute Force,12,127.815707,3.439504983165455
+1,Greedy,12,0.000028,4.177233605024462
+2,GRASP,12,0.019386,3.439504983165455

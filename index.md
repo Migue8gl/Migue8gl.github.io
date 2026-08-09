@@ -13,11 +13,9 @@ description: Hola, soy Miguel García. En este blog escribiré sobre Machine Lea
     class="home-separator"
   />
   
-  <p>¡Bienvenidos a mi blog personal! La verdad es que llevo ya un tiempo pensando en escribir algo, ya sea en una libretilla o en un blog. Siempre me han interesado los blogs y los foros, pues considero que es la parte más real que nos queda en este submundo virtual, por desgracia.</p>
+  <p>¡Bienvenidos a mi blog personal! Este proyecto nació de mi necesidad de expresión. Al escribir nos forzamos a organizar las ideas, elegir una narrativa con la que expresarnos y además, nos obliga a reflexionar y corregir sobre lo ya escrito. Es algo que se hace cada vez menos y no quiero perder esa cadena de pensamiento que tanto aporta.</p>
   
-  <p>Los contenidos SEO-optimizados, la multimedia generada por inteligencia artificial y completamente automatizado están dejando un espacio virtual bastante frío. Es en los blogs personales, foros con comunidades interesantes y con personas que participan activamente, donde se devuelve la magia que Internet siempre ha tenido y poco a poco pierde.</p>
-  
-  <p>Así que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y conceptos de ese mundillo.</p>
+  <p>Así que iré escribiendo poco a poco por aquí sobre ciencia de datos, algoritmos, aprendizaje automático y conceptos de ese mundillo que tanto me apasiona y al que tengo la suerte de dedicarme profesionalmente.</p>
   
   <p>Además, de vez en cuando voy subiendo a mi <a href="https://github.com/Migue8gl">Github</a> proyectos personales de los que hablaré por aquí.</p>
   
