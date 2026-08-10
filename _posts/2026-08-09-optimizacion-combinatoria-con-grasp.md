@@ -354,6 +354,12 @@ Ha llegado la hora de comparar las tres opciones propuestas, la fuerza bruta, el
 |    Greedy   |    12    |     0.000028     | 4.177233605024462 |
 |    GRASP    |    12    |     0.019386     | 3.439504983165455 |
 
+{% include image_grid.html 
+   paths="/assets/images/optimizacion-combinatoria-con-grasp/cities-12.png|
+   /assets/images/optimizacion-combinatoria-con-grasp/best_tour-12.png"
+   caption="Grafo de las 11 ciudades frente a la solución encontrada por GRASP."
+%}
+
 {% include image.html
    path="/assets/images/optimizacion-combinatoria-con-grasp/execution_time_vs_n_cities.png"
    caption="Tiempo de ejecución de distintos algoritmos según crece el tamaño de entrada en TSP."
