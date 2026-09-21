@@ -78,16 +78,26 @@ blockquote {
   font-weight: 400;
 }
 
-.post-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
+.post-header {
   margin-bottom: 2rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #373737;
 }
 
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.reading-time {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+  color: #6e7681;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
 /* Blog links */
 .blog-links {
   margin: 2rem 0;
