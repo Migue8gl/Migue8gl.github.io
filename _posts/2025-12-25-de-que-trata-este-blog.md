@@ -5,7 +5,7 @@ title: ¿De qué trata este blog?
 
 ¡Hola! Esta es la primera entrada de mi nuevo proyecto, escribir un blog.
 
-Lo primero de todo, quería hacer un breve resumen sobre quién soy, aunque ya he escrito algo de eso en la página <a href="https://migue8gl.github.io/about">*sobre mí*</a>, pero bueno, haré un resumen sobre el resumen. 
+Lo primero de todo, quería hacer un breve resumen sobre quién soy, aunque ya he escrito algo de eso en la página <a href="https://migue8gl.dev/about">*sobre mí*</a>, pero bueno, haré un resumen sobre el resumen. 
 
 Soy Miguel García, ingeniero informático, trabajo como científico de datos y desarrollador de *software*. Soy un aficionado a la lectura, al aprendizaje automático o *machine learning*, al gimnasio y a los videojuegos. Un poco *vanilla* si no ahondas mucho xD.
 

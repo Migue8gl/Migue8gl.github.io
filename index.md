@@ -19,7 +19,7 @@ description: Hola, soy Miguel García. En este blog escribiré sobre Machine Lea
   
   <p>Además, de vez en cuando voy subiendo a mi <a href="https://github.com/Migue8gl">Github</a> proyectos personales de los que hablaré por aquí.</p>
   
-  <p>Dejo por aquí mi <a href="https://migue8gl.github.io/cv">CV</a> con un resumen de mi experiencia laboral.</p>
+  <p>Dejo por aquí mi <a href="https://migue8gl.dev/cv">CV</a> con un resumen de mi experiencia laboral.</p>
 </div>
 
 <div class="home-posts">
