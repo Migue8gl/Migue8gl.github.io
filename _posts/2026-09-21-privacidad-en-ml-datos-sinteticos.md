@@ -56,7 +56,7 @@ Esta regularización hace que el espacio latente sea más continuo y permite mue
 {% include image.html
    path="/assets/images/privacidad-en-ml-datos-sinteticos/vae.png"
    caption="Estructura de un VAE."
-   width="500"
+   width="450"
 %}
 
 Con un modelo de este tipo, podríamos muestrear el espacio latente aprendido de forma aleatoria y reconstruir esas muestras. No son datos reales, pero deberían conservar características similares. Estos son nuestros datos sintéticos. Pero hay un problema. Si queremos usarlos para predecir algo, ¿cómo sabemos qué predecimos? Es decir, tenemos datos muy parecidos a los reales, pero no sabemos **qué** son. En en el conjunto original teníamos algún tipo de información extra, por ejemplo, si quisiéramos clasificar pacientes (tiene cáncer o no tiene cáncer), o clientes (de riesgo o seguros), deberíamos tener una etiqueta para poder entrenar un modelo de clasificación binario. Eso el *VAE* no lo ha aprendido y por tanto, solo tenemos un batiburrillo de puntos en el espacio.
@@ -223,7 +223,7 @@ Cuando queremos saber si los datos sintéticos son buenos, tenemos un amplio aba
 {% include image.html
    path="/assets/images/privacidad-en-ml-datos-sinteticos/iris_roc_curve.png"
    caption="Curva ROC para RF Resemblance"
-   width="500"
+   width="400"
 %}
 
 Los resultados son... ¡Una mierda! El discriminador es capaz de distinguir perfectamente entre los datos reales y los sintéticos. Desde el punto de vista de *resemblance*, esto indica que ambos conjuntos presentan diferencias claras que el *random forest* puede aprovechar para clasificarlos. De hecho, mirando las agrupaciones generadas en las imágenes anteriores, visualmente es bastante perceptible.
@@ -241,7 +241,7 @@ La capacidad del ataque se mide mediante *ROC-AUC*, donde un valor cercano a $0.
 {% include image.html
    path="/assets/images/privacidad-en-ml-datos-sinteticos/iris_membership_inference.png"
    caption="Curva ROC para Membership Inference Attack"
-   width="500"
+   width="400"
 %}
 
 Esto, de nuevo, no significa que el *CVAE* sea completamente privado, sino únicamente que este ataque concreto no consigue extraer una señal clara de *membership*. Precisamente por eso, en los siguientes artículos veremos ataques y métricas más sofisticados para estudiar hasta qué punto los datos sintéticos pueden proteger realmente la información utilizada durante el entrenamiento y qué otras formas hay de generarlos.
