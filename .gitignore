@@ -12,3 +12,6 @@ priv_scripts/
 data/
 models/
 scripts/
+
+# Documentación interna (backlog, estado): solo local
+docs/
