@@ -53,3 +53,11 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# GitHub Pages compila con Jekyll 3.x, donde una lista propia reemplaza a la
+# de por defecto: por eso se repiten Gemfile y vendor.
+exclude:
+  - docs/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
